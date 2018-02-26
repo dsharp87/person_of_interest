@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CAngular
+namespace person_of_interest
 {
     public class Startup
     {

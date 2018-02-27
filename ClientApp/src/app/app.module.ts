@@ -30,7 +30,8 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'chat', component: ChatroomComponent}
+      { path: 'chat', component: ChatroomComponent},
+      { path: 'quiz/:id', component: QuizComponent}
     ])
   ],
   providers: [],

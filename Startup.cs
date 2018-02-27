@@ -4,6 +4,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using person_of_interest.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace person_of_interest
 {
@@ -19,8 +25,13 @@ namespace person_of_interest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+<<<<<<< HEAD
+=======
+            services.AddDbContext<ProjectContext>(options => options.UseMySQL(Configuration["DBInfo:ConnectionString"]));
+>>>>>>> tyler
             services.AddSignalR();
             services.AddMvc();
+            services.AddSession();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -48,7 +59,7 @@ namespace person_of_interest
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

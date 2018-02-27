@@ -17,6 +17,7 @@ namespace person_of_interest.Controllers
         [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts()
         {
+            System.Console.WriteLine("in weather forcasts creator");
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

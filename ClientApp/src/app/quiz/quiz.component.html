@@ -1,3 +1,21 @@
 <p>quiz works!</p>
 <h3>{{ QuizTitle }}</h3>
 <h4>{{Id}}</h4>
+
+<form (submit) = "SubmitAnswer()" name = "formdata" #formdata='ngForm'>
+    <label>Test Answer</label><input type="text" name="TestAnswer" required minlength = "5" [(ngModel)] = 'Answer.TestAnswer' #thisanswer = "ngModel">
+    <p *ngIf="thisanswer.invalid && (thisanswer.dirty || thisanswer.touched)">Your answer must be at least 5 characters long</p>
+    <input type="submit" value="GO" [disabled]= "formdata.status == 'INVALID'">
+</form>
+
+{{ Answer | json }}
+
+{{ Questions | json }}
+
+<form *ngFor="let question of Questions">
+    <h3>{{ question.questionString }}</h3>
+    <input type="radio" name="answer" value="A">{{ question.answerA }}
+    <input type="radio" name="answer" value="B">{{ question.answerB }}
+    <input type="radio" name="answer" value="C">{{ question.answerC }}
+    <input type="radio" name="answer" value="D">{{ question.answerD }}
+</form>

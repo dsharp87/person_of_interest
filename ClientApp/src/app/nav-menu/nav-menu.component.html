@@ -28,6 +28,11 @@
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/chat"]' (click)='collapse()'>
+                        <span class='glyphicon glyphicon-th-list'></span> Chat
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
                     <a [routerLink]='["/quiz/1"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-th-list'></span> Go to quiz 1
                     </a>

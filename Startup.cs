@@ -1,3 +1,4 @@
+using AspNetCoreSignalr.SignalRHubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -18,6 +19,7 @@ namespace person_of_interest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
             services.AddMvc();
 
             // In production, the Angular files will be served from this directory
@@ -38,6 +40,11 @@ namespace person_of_interest
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseSignalR(routes =>
+                {
+                    routes.MapHub<ChatHub>("chathub");
+                });
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

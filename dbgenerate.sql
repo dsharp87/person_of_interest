@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `person_of_interest`.`users` (
   `LastName` VARCHAR(255) NULL,
   `Email` VARCHAR(255) NULL,
   `Password` VARCHAR(255) NULL,
+  `Salt` VARCHAR(255) NULL,
   `CreatedAt` DATETIME NULL DEFAULT now(),
   `UpdatedAt` DATETIME NULL DEFAULT now() on update now(),
   PRIMARY KEY (`UserID`))

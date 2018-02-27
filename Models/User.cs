@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace person_of_interest.Models
 {
@@ -8,6 +9,7 @@ namespace person_of_interest.Models
     public class User : BaseEntity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

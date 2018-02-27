@@ -8,18 +8,20 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./quiz.component.css']
 })
 export class QuizComponent implements OnInit {
-  QuizTitle: string = "Quiz Title Here"
+  QuizTitle: string;
   Id:number = 0;
   Answer: object;
-  Questions: Question[];
+  Questions: object;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.Answer = {
       TestAnswer: ""
     };
-    this._http.get<Question[]>(baseUrl + 'Quizes/Quiz/GetQuiz').subscribe(result => {
-      this.Questions = result;
+    this._http.get(baseUrl + 'Quizes/Quiz/GetQuiz/1').subscribe(result => {
+      console.log(result);
+      this.Questions = result["questions"];
+      this.QuizTitle = result["name"];
     }, error => console.error(error))
    }
 

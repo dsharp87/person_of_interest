@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using person_of_interest.Models;
 
 namespace person_of_interest.Controllers
 {
@@ -10,32 +12,37 @@ namespace person_of_interest.Controllers
     [Route("Quizes/[controller]")]
     public class QuizController : Controller
     {
-        [HttpGet("[action]")]
-        public IEnumerable<Question> GetQuiz()
+
+        private ProjectContext _context;
+
+        public QuizController(ProjectContext context)
         {
-            return Enumerable.Range(1, 3).Select(Qnum => new Question
-            {
-                QuestionString = $"I am a question {Qnum}",
-                AnswerA = "I am Answer A",
-                AnswerB = "I am Answer B",
-                AnswerC = "I am Answer C",
-                AnswerD = "I am Answer D"
-            });
-        }
-    
-    
-        public class Question
-        {
-            public string QuestionString { get; set; }
-            public string AnswerA { get; set; }
-
-            public string AnswerB { get; set; }
-
-            public string AnswerC { get; set; }
-
-            public string AnswerD { get; set; }
+            _context = context;
         }
 
-    
+
+        [HttpGet("[action]/{IdNum}")]
+        // public IEnumerable<Question> GetQuiz(int IdNum)
+        public SlimQuiz GetQuiz(int IdNum)
+        {
+            Quiz Quiz = _context.quizes.Where( quiz => quiz.QuizID == IdNum).Include( quiz => quiz.Questions).SingleOrDefault();
+            SlimQuiz SlimQuiz = new SlimQuiz {
+                QuizID = Quiz.QuizID,
+                Name = Quiz.Name
+            };
+            foreach (var question in Quiz.Questions) {
+                SlimQuestion SlimQuestion = new SlimQuestion {
+                    QuestionID = question.QuestionID,
+                    QuestionString = question.QuestionString,
+                    AnswerA = question.AnswerA,
+                    AnswerB = question.AnswerB,
+                    AnswerC = question.AnswerC,
+                    AnswerD = question.AnswerD
+                };
+                SlimQuiz.Questions.Add(SlimQuestion);   
+            }
+            return SlimQuiz;
+        }
+        
     }
 }

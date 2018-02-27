@@ -42,7 +42,7 @@ namespace person_of_interest.Controllers
         //Register function.
         public IActionResult RegisterUser(User regUser)
         {
-            var currentUser = _context.Users.SingleOrDefault(user => user.Email == regUser.Email);
+            var currentUser = _context.users.SingleOrDefault(user => user.Email == regUser.Email);
             if(ModelState.IsValid && currentUser == null)
                 {
                     User newUser = new User
@@ -66,7 +66,7 @@ namespace person_of_interest.Controllers
         //Login function.
         public IActionResult LoginUser(User logUser)
         {
-            var currentUser = _context.Users.SingleOrDefault(user => user.Email == logUser.Email);
+            var currentUser = _context.users.SingleOrDefault(user => user.Email == logUser.Email);
             if(currentUser != null && currentUser.Password == logUser.Password)
             {
                 HttpContext.Session.SetObjectAsJson("currentUser", currentUser);

@@ -1,5 +1,3 @@
-<p>quiz works!</p>
-<h3>{{ QuizTitle }}</h3>
 <h4>{{Id}}</h4>
 
 <form (submit) = "SubmitAnswer()" name = "formdata" #formdata='ngForm'>
@@ -11,6 +9,8 @@
 {{ Answer | json }}
 
 {{ Questions | json }}
+
+<h3>{{ QuizTitle }} Quiz</h3>
 
 <form *ngFor="let question of Questions">
     <h3>{{ question.questionString }}</h3>

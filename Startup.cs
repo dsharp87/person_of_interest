@@ -25,10 +25,7 @@ namespace person_of_interest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-<<<<<<< HEAD
-=======
             services.AddDbContext<ProjectContext>(options => options.UseMySQL(Configuration["DBInfo:ConnectionString"]));
->>>>>>> tyler
             services.AddSignalR();
             services.AddMvc();
             services.AddSession();

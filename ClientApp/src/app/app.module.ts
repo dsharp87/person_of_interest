@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
+import { SelectUserComponent } from './select-user/select-user.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
     CounterComponent,
     FetchDataComponent,
     QuizComponent,
-    ChatroomComponent
+    ChatroomComponent,
+    SelectUserComponent,
+    SelectUserComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -31,7 +34,8 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'chat', component: ChatroomComponent},
-      { path: 'quiz/:id', component: QuizComponent}
+      { path: 'quiz/:id', component: QuizComponent},
+      { path: 'findfriend', component: SelectUserComponent}
     ])
   ],
   providers: [],

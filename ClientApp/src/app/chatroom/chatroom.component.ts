@@ -12,20 +12,24 @@ export class ChatroomComponent implements OnInit {
   public async: any;
   message = '';
   messages: string[] = [];
+  user: object;
+  
+  
 
-  constructor() { }
+  constructor() {
+    this.user = {first_name : "Per"}
+   }
 
   public sendMessage(): void {
-    const data = `UserName: ${this.message}`;
+    const data = `${this.user['first_name']}: ${this.message}`;
 
     this._hubConnection.invoke('Send', data);
-    this.messages.push(data);
+    // this.messages.push(data);
   }
 
 
   ngOnInit() {
     this._hubConnection = new HubConnection('/chathub');
-
     this._hubConnection.on('Send', (data: any) => {
       const received = `${data}`;
       this.messages.push(received);

@@ -11,6 +11,8 @@ namespace person_of_interest.Models
         [Key]
         public int QuestionID { get; set; }
 
+        public string Qnum { get; set; }
+
         public string QuestionString { get; set; }
 
         public string AnswerA { get; set; }

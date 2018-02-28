@@ -10,6 +10,7 @@ import { createWiresService } from 'selenium-webdriver/firefox';
 })
 export class LoginComponent implements OnInit {
   User: object; 
+  LogUser: object;
   baseUrl: string;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string)
@@ -19,8 +20,13 @@ export class LoginComponent implements OnInit {
       LastName : '',
       Email : '',
       Password : '',
-
     },
+
+    this.LogUser = {
+      Email : '',
+      Password : '',
+    }
+
 
     this.baseUrl = baseUrl;
   }

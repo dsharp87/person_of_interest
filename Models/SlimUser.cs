@@ -12,5 +12,7 @@ namespace person_of_interest.Models
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public string ConnectionID { get; set; }
+            public SlimUser() {
+            }
         }
 }

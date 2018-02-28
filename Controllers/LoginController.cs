@@ -40,21 +40,22 @@ namespace person_of_interest.Controllers {
             var currentUser = _context.users.SingleOrDefault (user => user.Email == regUser.Email);
             if (currentUser == null) {
 
-                List<string> HashRes = HashSalt (regUser.Password, CreateByteSalt ());
+                // List<string> HashRes = HashSalt (regUser.Password, CreateByteSalt ());
                 User newUser = new User {
                     FirstName = regUser.FirstName,
                     LastName = regUser.LastName,
                     Email = regUser.Email,
-                    Password = HashRes[1],
-                    Salt = HashRes[0],
+                    Password = regUser.Password,
+                    // Password = HashRes[1],
+                    // Salt = HashRes[0],
                 };
 
                 SlimUser NewSlimUser = new SlimUser {
-                    FirstName = currentUser.FirstName,
-                    LastName = currentUser.LastName,
-                    ConnectionID = currentUser.ConnectionID,
-                    UserID = currentUser.UserID,
-                }
+                    FirstName = newUser.FirstName,
+                    LastName = newUser.LastName,
+                    ConnectionID = newUser.ConnectionID,
+                    UserID = newUser.UserID,
+                };
                 _context.Add(newUser);
                 _context.SaveChanges();
                 HttpContext.Session.SetObjectAsJson("currentUser", NewSlimUser);
@@ -63,8 +64,7 @@ namespace person_of_interest.Controllers {
         }
 
         [HttpPost ("[action]")]
-
-        public Object LoginUser (User logUser) {
+        public Object LoginUser ([FromBody] LoginUserModel logUser) {
             var currentUser = _context.users.SingleOrDefault (user => user.Email == logUser.Email);
             if (currentUser == null) {
                 //SOME ERROR MESSAGE FOR FRONT END
@@ -75,14 +75,15 @@ namespace person_of_interest.Controllers {
                 LastName = currentUser.LastName,
                 ConnectionID = currentUser.ConnectionID,
                 UserID = currentUser.UserID,
-            }
+            };
             //Compare passwords
-            byte[] Salt = Convert.FromBase64String (currentUser.Salt);
-            string HashSaltedPswd = CreatePasswordHash(currentUser.Password, Salt);
+            // byte[] Salt = Convert.FromBase64String (currentUser.Salt);
+            // string HashSaltedPswd = CreatePasswordHash(currentUser.Password, Salt);
             
-            if (HashSaltedPswd == currentUser.Password){
+            // if (HashSaltedPswd == currentUser.Password){
+            if(logUser.Password == currentUser.Password){
                 HttpContext.Session.SetObjectAsJson ("currentUser", NewSlimUser);
-                return currentUser;
+                return NewSlimUser;
             }
             else{ return BadRequest("Password does not match!");};
         }

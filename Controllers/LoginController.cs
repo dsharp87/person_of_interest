@@ -40,14 +40,13 @@ namespace person_of_interest.Controllers {
             var currentUser = _context.users.SingleOrDefault (user => user.Email == regUser.Email);
             if (currentUser == null) {
 
-                List<string> HashRes = HashSalt (regUser.Password, CreateByteSalt());
+                List<string> HashRes = HashSalt (regUser.Password, CreateByteSalt ());
                 User newUser = new User {
                     FirstName = regUser.FirstName,
                     LastName = regUser.LastName,
                     Email = regUser.Email,
                     Password = HashRes[1],
                     Salt = HashRes[0],
-
                 };
                 _context.Add (newUser);
                 _context.SaveChanges ();
@@ -58,18 +57,21 @@ namespace person_of_interest.Controllers {
 
         [HttpPost ("[action]")]
 
-        public User LoginUser (User logUser) {
+        public Object LoginUser (User logUser) {
             var currentUser = _context.users.SingleOrDefault (user => user.Email == logUser.Email);
             if (currentUser == null) {
                 //SOME ERROR MESSAGE FOR FRONT END
-                return currentUser;
+                return BadRequest ("User email does not exist");
             }
             //Compare passwords
             byte[] Salt = Convert.FromBase64String (currentUser.Salt);
-            HttpContext.Session.SetObjectAsJson ("currentUser", currentUser);
-            RedirectToAction ("");
-
-            return currentUser;
+            string HashSaltedPswd = CreatePasswordHash(currentUser.Password, Salt);
+            
+            if (HashSaltedPswd == currentUser.Password){
+                HttpContext.Session.SetObjectAsJson ("currentUser", currentUser);
+                return currentUser;
+            }
+            else{ return BadRequest("Password does not match!");};
         }
 
         public static byte[] CreateByteSalt () {
@@ -78,6 +80,16 @@ namespace person_of_interest.Controllers {
                 Rng.GetBytes (Salt);
             }
             return Salt;
+        }
+
+        public static string CreatePasswordHash (string Pass, byte[] Salt) {
+            string HashedPassString = Convert.ToBase64String (KeyDerivation.Pbkdf2 (
+                Pass,
+                Salt,
+                KeyDerivationPrf.HMACSHA1,
+                10000,
+                256 / 8));
+            return HashedPassString;
         }
 
         public class RegisterUserModel {
@@ -96,13 +108,17 @@ namespace person_of_interest.Controllers {
             // }
             // Console.WriteLine ($"Salt: {Convert.ToBase64String(Salt)}");
             // derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
-            string Hashed = Convert.ToBase64String (KeyDerivation.Pbkdf2 (
-                Pass,
-                Salt,
-                KeyDerivationPrf.HMACSHA1,
-                10000,
-                256 / 8));
-            Console.WriteLine ($"Hashed: {Hashed}");
+            
+            // string Hashed = Convert.ToBase64String (KeyDerivation.Pbkdf2 (
+            //     Pass,
+            //     Salt,
+            //     KeyDerivationPrf.HMACSHA1,
+            //     10000,
+            //     256 / 8));
+            // Console.WriteLine ($"Hashed: {Hashed}");
+            // List<string> HashPassString = new List<string> { Convert.ToBase64String (Salt), Hashed };
+            // return HashPassString;
+            string Hashed = CreatePasswordHash(Pass, Salt);
             List<string> HashPassString = new List<string> { Convert.ToBase64String (Salt), Hashed };
             return HashPassString;
         }

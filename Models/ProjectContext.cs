@@ -11,5 +11,7 @@ namespace person_of_interest.Models
         public DbSet<Quiz> quizes { get; set; }
 
         public DbSet<Question> questions { get; set; }
+
+        public DbSet<QuizResult> quiz_results { get; set; }
     }
 }

@@ -1,21 +1,41 @@
-<h4>{{Id}}</h4>
+<h4>This is QuizID {{Id}}</h4>
 
-<form (submit) = "SubmitAnswer()" name = "formdata" #formdata='ngForm'>
-    <label>Test Answer</label><input type="text" name="TestAnswer" required minlength = "5" [(ngModel)] = 'Answer.TestAnswer' #thisanswer = "ngModel">
-    <p *ngIf="thisanswer.invalid && (thisanswer.dirty || thisanswer.touched)">Your answer must be at least 5 characters long</p>
-    <input type="submit" value="GO" [disabled]= "formdata.status == 'INVALID'">
-</form>
+{{ Answers | json }}
 
-{{ Answer | json }}
-
-{{ Questions | json }}
+<!-- {{ Questions | json }} -->
 
 <h3>{{ QuizTitle }} Quiz</h3>
 
-<form *ngFor="let question of Questions">
-    <h3>{{ question.questionString }}</h3>
-    <input type="radio" name="answer" value="A">{{ question.answerA }}
-    <input type="radio" name="answer" value="B">{{ question.answerB }}
-    <input type="radio" name="answer" value="C">{{ question.answerC }}
-    <input type="radio" name="answer" value="D">{{ question.answerD }}
+<form (submit)="SubmitAnswers()" name="formdata">
+    <h3>{{ Questions[0].questionString }}</h3>
+    <input type="radio" name="answer1" value="A" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerA }}
+    <input type="radio" name="answer1" value="B" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerB }}
+    <input type="radio" name="answer1" value="C" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerC }}
+    <input type="radio" name="answer1" value="D" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerD }}
+    <hr>
+    <h3>{{ Questions[1].questionString }}</h3>
+    <input type="radio" name="answer2" value="A" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerA }}
+    <input type="radio" name="answer2" value="B" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerB }}
+    <input type="radio" name="answer2" value="C" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerC }}
+    <input type="radio" name="answer2" value="D" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerD }}
+    <hr>
+    <h3>{{ Questions[2].questionString }}</h3>
+    <input type="radio" name="answer3" value="A" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerA }}
+    <input type="radio" name="answer3" value="B" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerB }}
+    <input type="radio" name="answer3" value="C" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerC }}
+    <input type="radio" name="answer3" value="D" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerD }}
+    <hr>
+    <h3>{{ Questions[3].questionString }}</h3>
+    <input type="radio" name="answer4" value="A" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerA }}
+    <input type="radio" name="answer4" value="B" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerB }}
+    <input type="radio" name="answer4" value="C" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerC }}
+    <input type="radio" name="answer4" value="D" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerD }}
+    <hr>
+    <h3>{{ Questions[4].questionString }}</h3>
+    <input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerA }}
+    <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerB }}
+    <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerC }}
+    <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerD }}
+    <hr>
+    <input type="submit" value="GO" [disabled]= "formdata.status == 'INVALID'">
 </form>

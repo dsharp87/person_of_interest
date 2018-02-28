@@ -16,9 +16,8 @@ namespace person_of_interest.Controllers {
 
         [HttpGet ("[action]")]
         public User CheckSession () {
-            User SlimUser = HttpContext.Session.GetObjectFromJson<User> ("SlimUser");
-            return SlimUser;
+            User currentUser = HttpContext.Session.GetObjectFromJson<User> ("currentUser");
+            return currentUser;
         }
-
     }
 }

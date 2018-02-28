@@ -37,8 +37,8 @@ namespace person_of_interest.Controllers {
         //Register function.
         [HttpPost ("[action]")]
         public void RegisterUser ([FromBody] RegisterUserModel regUser) {
-            var SlimUser = _context.users.SingleOrDefault (user => user.Email == regUser.Email);
-            if (SlimUser == null) {
+            var currentUser = _context.users.SingleOrDefault (user => user.Email == regUser.Email);
+            if (currentUser == null) {
 
                 List<string> HashRes = HashSalt (regUser.Password, CreateByteSalt ());
                 User newUser = new User {
@@ -48,9 +48,16 @@ namespace person_of_interest.Controllers {
                     Password = HashRes[1],
                     Salt = HashRes[0],
                 };
+
+                SlimUser NewSlimUser = new SlimUser {
+                    FirstName = currentUser.FirstName,
+                    LastName = currentUser.LastName,
+                    ConnectionID = currentUser.ConnectionID,
+                    UserID = currentUser.UserID,
+                }
                 _context.Add(newUser);
                 _context.SaveChanges();
-                // HttpContext.Session.SetObjectAsJson("SlimUser", newUser);
+                HttpContext.Session.SetObjectAsJson("currentUser", NewSlimUser);
                 return;
             }
         }
@@ -58,18 +65,24 @@ namespace person_of_interest.Controllers {
         [HttpPost ("[action]")]
 
         public Object LoginUser (User logUser) {
-            var SlimUser = _context.users.SingleOrDefault (user => user.Email == logUser.Email);
-            if (SlimUser == null) {
+            var currentUser = _context.users.SingleOrDefault (user => user.Email == logUser.Email);
+            if (currentUser == null) {
                 //SOME ERROR MESSAGE FOR FRONT END
                 return BadRequest ("User email does not exist");
             }
+            SlimUser NewSlimUser = new SlimUser {
+                FirstName = currentUser.FirstName,
+                LastName = currentUser.LastName,
+                ConnectionID = currentUser.ConnectionID,
+                UserID = currentUser.UserID,
+            }
             //Compare passwords
-            byte[] Salt = Convert.FromBase64String (SlimUser.Salt);
-            string HashSaltedPswd = CreatePasswordHash(SlimUser.Password, Salt);
+            byte[] Salt = Convert.FromBase64String (currentUser.Salt);
+            string HashSaltedPswd = CreatePasswordHash(currentUser.Password, Salt);
             
-            if (HashSaltedPswd == SlimUser.Password){
-                HttpContext.Session.SetObjectAsJson ("SlimUser", SlimUser);
-                return SlimUser;
+            if (HashSaltedPswd == currentUser.Password){
+                HttpContext.Session.SetObjectAsJson ("currentUser", NewSlimUser);
+                return currentUser;
             }
             else{ return BadRequest("Password does not match!");};
         }

@@ -16,6 +16,7 @@ namespace person_of_interest.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
+        public string ConnectionID { get; set; }
         
     }
 }

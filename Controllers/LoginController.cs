@@ -11,7 +11,7 @@ using person_of_interest.Models;
 using Microsoft.AspNetCore.Http;
 using System.Text;
 
-//ADD CONTEXT FILE and MODELS, then these ugly red lines will go away.
+
 namespace person_of_interest.Controllers
 {
     //Static class for Session/ Session Extensions.
@@ -30,6 +30,7 @@ namespace person_of_interest.Controllers
                 return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
             }
         }
+    [Route("[controller]")]
     public class LoginController: Controller
     {
         //Defines our context
@@ -40,8 +41,10 @@ namespace person_of_interest.Controllers
         }
 
         //Register function.
-        public IActionResult RegisterUser(User regUser)
+        [HttpPost("[action]")]
+        public void RegisterUser([FromBody] RegisterUserModel regUser)
         {
+<<<<<<< HEAD
             var currentUser = _context.users.SingleOrDefault(user => user.Email == regUser.Email);
             if(ModelState.IsValid && currentUser == null)
                 {
@@ -68,73 +71,67 @@ namespace person_of_interest.Controllers
         {
             var currentUser = _context.users.SingleOrDefault(user => user.Email == logUser.Email);
             if(currentUser != null && currentUser.Password == logUser.Password)
+=======
+            var currentUser = _context.Users.SingleOrDefault(user => user.Email == regUser.Email);
+            if (currentUser == null)
+>>>>>>> tyler
             {
-                HttpContext.Session.SetObjectAsJson("currentUser", currentUser);
-                RedirectToAction("Success");
-            }else{
-            ViewBag.Error = "Incorrect Email/ Password combination";
-            return View("Index");
+                
+                List<string> HashRes = HashSalt(regUser.Password);
+                User newUser = new User
+                {
+                    FirstName = regUser.FirstName,
+                    LastName = regUser.LastName,
+                    Email = regUser.Email,
+                    Password = HashRes[1],
+                    Salt = HashRes[0],
+
+                };
+                _context.Add(newUser);
+                _context.SaveChanges();
+                HttpContext.Session.SetObjectAsJson("currentUser", newUser);
+                return;
             }
-            
-            return RedirectToAction("Success");
+
+            // public void LoginUser(User logUser)
+            // {
+            //     var currentUser = _context.Users.SingleOrDefault(user => user.Email == logUser.Email);
+            //         HttpContext.Session.SetObjectAsJson("currentUser", currentUser);
+            //         RedirectToAction("");
+                
+            //     return;
+            // }
         }
 
-        //PASSWORD STUFF
-        public class HashWithSaltResult
+        public class RegisterUserModel
         {
-            public string Salt { get; }
-            public string Digest { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
+        }
+        //Login function.
         
-            public HashWithSaltResult(string salt, string digest)
-            {
-                Salt = salt;
-                Digest = digest;
-            }
-        }
-        //RNG CLASS
-        public class RNG
-        {
-            public string GenerateRandomCryptographicKey(int keyLength)
-            {           
-                return Convert.ToBase64String(GenerateRandomCryptographicBytes(keyLength));
-            }
- 
-            public byte[] GenerateRandomCryptographicBytes(int keyLength)
-            {
-                RNGCryptoServiceProvider rngCryptoServiceProvider = new RNGCryptoServiceProvider();
-                byte[] randomBytes = new byte[keyLength];
-                rngCryptoServiceProvider.GetBytes(randomBytes);
-                return randomBytes;
-            }
-        }
-        //Password hash, salt function to be used in TestPasswordHasher
-        public class PasswordWithSaltHasher
-        {
-            public HashWithSaltResult HashWithSalt(string Password, int saltLength, HashAlgorithm hashAlgo)
-            {
-                RNG rng = new RNG();
-                byte[] saltBytes = rng.GenerateRandomCryptographicBytes(saltLength);
-                byte[] PasswordAsBytes = Encoding.UTF8.GetBytes(Password); 
-                List<byte> PasswordWithSaltBytes = new List<byte>();
-                PasswordWithSaltBytes.AddRange(PasswordAsBytes);
-                PasswordWithSaltBytes.AddRange(saltBytes);
-                byte[] digestBytes = hashAlgo.ComputeHash(PasswordWithSaltBytes.ToArray());
-                return new HashWithSaltResult(Convert.ToBase64String(saltBytes), Convert.ToBase64String(digestBytes));
-            }
-        }
 
-        private static void TestPasswordHasher()
+        public static List<string> HashSalt(string Pass)
         {
-            PasswordWithSaltHasher pwHasher = new PasswordWithSaltHasher();
-            HashWithSaltResult hashResultSha256 = pwHasher.HashWithSalt("ultra_safe_P455w0rD", 64, SHA256.Create());
-            HashWithSaltResult hashResultSha512 = pwHasher.HashWithSalt("ultra_safe_P455w0rD", 64, SHA512.Create());
-        
-            Console.WriteLine(hashResultSha256.Salt);
-            Console.WriteLine(hashResultSha256.Digest);
-            Console.WriteLine();
-            Console.WriteLine(hashResultSha512.Salt);
-            Console.WriteLine(hashResultSha512.Digest);
+            // generate a 128-bit salt using a secure PRNG
+            byte[] Salt = new byte[128 / 8];
+            using (var Rng = RandomNumberGenerator.Create())
+            {
+                Rng.GetBytes(Salt);
+            }
+            Console.WriteLine($"Salt: {Convert.ToBase64String(Salt)}");
+    
+            // derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
+            string Hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                Pass,
+                Salt,
+                KeyDerivationPrf.HMACSHA1,
+                10000,
+                256 / 8));
+            Console.WriteLine($"Hashed: {Hashed}");
+            List<string> HashPassString = new List<string>{Convert.ToBase64String(Salt), Hashed};
+            return HashPassString;
         }
-
-    }
-}
+}}

@@ -7,34 +7,34 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Registration</h1>
   <div class="reg_form">
-    <h2>Account Information</h2>
-    <form #registerForm="ngForm" (submit)="RegisterUser()">
-      <p><input type="text" name="FirstName" [(ngModel)] = "User.FirstName" #FirstName="ngModel" placeholder="First Name" required></p>
-      <p class="errors" *ngIf="!FirstName.valid && (FirstName.dirty || FirstName.touched)" >First name is required</p>
-      
-      <p><input type="text" name="LastName" [(ngModel)] = "User.LastName" #LastName="ngModel" placeholder="Last Name" required></p>
-      <p class="errors" *ngIf="!LastName.valid && (LastName.dirty || LastName.touched)" >Last name is required</p>
+    <fieldset>
+      <legend><b>Register</b></legend>
+      <form #registerForm="ngForm" (submit)="RegisterUser()">
+        <p><input type="text" name="FirstName" [(ngModel)] = "User.FirstName" #FirstName="ngModel" placeholder="First Name" required></p>
+        <p class="errors" *ngIf="!FirstName.valid && (FirstName.dirty || FirstName.touched)" >First name is required</p>
+        
+        <p><input type="text" name="LastName" [(ngModel)] = "User.LastName" #LastName="ngModel" placeholder="Last Name" required></p>
+        <p class="errors" *ngIf="!LastName.valid && (LastName.dirty || LastName.touched)" >Last name is required</p>
 
-      <p><input type="text" name="Email" [(ngModel)] = "User.Email" #Email="ngModel" placeholder="Email" required></p>
-      <p class="errors" *ngIf="!Email.valid && (Email.dirty || Email.touched)" >Email is invalid</p>
+        <p><input type="text" name="Email" [(ngModel)] = "User.Email" #Email="ngModel" placeholder="Email" required></p>
+        <p class="errors" *ngIf="!Email.valid && (Email.dirty || Email.touched)" >Email is invalid</p>
 
-      <p><input type="text" name="Password" [(ngModel)] = "User.Password" #Password="ngModel" pattern="^([a-zA-Z0-9@*#]{8,15})$" placeholder="Password" required></p>
-      <p class="errors" *ngIf="!Password.valid && (Password.dirty || Password.touched)" >Password is required</p>
+        <p><input type="text" name="Password" [(ngModel)] = "User.Password" #Password="ngModel" pattern="^([a-zA-Z0-9@*#]{8,15})$" placeholder="Password" required></p>
+        <p class="errors" *ngIf="!Password.valid && (Password.dirty || Password.touched)" >Password is required</p>
 
-      <p><input type="text" name="cPassword" [(ngModel)] = "User.cPassword" #cPassword="ngModel"pattern="^([a-zA-Z0-9@*#])$" placeholder="Confirm Password" required></p>
-      <p class="errors" *ngIf="!cPassword.valid && User.cPassword !== User.Password && (cPassword.dirty || cPassword.touched)" required>Confirm Password is required</p>
-      <p class="errors" *ngIf="User.cPassword != User.Password">Passwords do not match.</p>
-      <p><input type="text" name="address" [(ngModel)] = "User.address" #address="ngModel" placeholder="Street Address" required></p>
-      <p class="errors" *ngIf="!address.valid && (address.dirty || address.touched)" >Address is required</p>
-
-      <p><input type="submit" [disabled]="!registerForm.valid || User.Password != User.cPassword" value="REGISTER!!"></p>
-    </form>
+        <p><input type="text" name="cPassword" [(ngModel)] = "User.cPassword" #cPassword="ngModel"pattern="^([a-zA-Z0-9@*#])$" placeholder="Confirm Password" required></p>
+        <p class="errors" *ngIf="!cPassword.valid && User.cPassword !== User.Password && (cPassword.dirty || cPassword.touched)" required>Confirm Password is required</p>
+        <p class="errors" *ngIf="User.cPassword != User.Password">Passwords do not match.</p>
+        
+        <p><input type="submit" value="REGISTER!!"></p>
+      </form>
+      {{ User | json }}
+    </fieldset>
   </div>
   <div class="log_form">
     <fieldset>
-      <legend><b>Login or Register, or don't</b></legend>
+      <legend><b>Login</b></legend>
         <form #logForm = "ngForm" (submit)="LoginUser()">
           <p><input type="text" name="name" placeholder="Name" [(ngModel)] = "User.name" #name = "ngModel" required></p>
           <p class="errors" *ngIf="!name.valid && (name.dirty || name.touched)" >First name is required</p>

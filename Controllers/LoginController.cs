@@ -37,8 +37,8 @@ namespace person_of_interest.Controllers {
         //Register function.
         [HttpPost ("[action]")]
         public void RegisterUser ([FromBody] RegisterUserModel regUser) {
-            var currentUser = _context.users.SingleOrDefault (user => user.Email == regUser.Email);
-            if (currentUser == null) {
+            var SlimUser = _context.users.SingleOrDefault (user => user.Email == regUser.Email);
+            if (SlimUser == null) {
 
                 List<string> HashRes = HashSalt (regUser.Password, CreateByteSalt ());
                 User newUser = new User {
@@ -50,7 +50,7 @@ namespace person_of_interest.Controllers {
                 };
                 _context.Add(newUser);
                 _context.SaveChanges();
-                // HttpContext.Session.SetObjectAsJson("currentUser", newUser);
+                // HttpContext.Session.SetObjectAsJson("SlimUser", newUser);
                 return;
             }
         }
@@ -58,18 +58,18 @@ namespace person_of_interest.Controllers {
         [HttpPost ("[action]")]
 
         public Object LoginUser (User logUser) {
-            var currentUser = _context.users.SingleOrDefault (user => user.Email == logUser.Email);
-            if (currentUser == null) {
+            var SlimUser = _context.users.SingleOrDefault (user => user.Email == logUser.Email);
+            if (SlimUser == null) {
                 //SOME ERROR MESSAGE FOR FRONT END
                 return BadRequest ("User email does not exist");
             }
             //Compare passwords
-            byte[] Salt = Convert.FromBase64String (currentUser.Salt);
-            string HashSaltedPswd = CreatePasswordHash(currentUser.Password, Salt);
+            byte[] Salt = Convert.FromBase64String (SlimUser.Salt);
+            string HashSaltedPswd = CreatePasswordHash(SlimUser.Password, Salt);
             
-            if (HashSaltedPswd == currentUser.Password){
-                HttpContext.Session.SetObjectAsJson ("currentUser", currentUser);
-                return currentUser;
+            if (HashSaltedPswd == SlimUser.Password){
+                HttpContext.Session.SetObjectAsJson ("SlimUser", SlimUser);
+                return SlimUser;
             }
             else{ return BadRequest("Password does not match!");};
         }
@@ -104,8 +104,6 @@ namespace person_of_interest.Controllers {
             public string Email { get; set; }
             public string Password { get; set; }
         }
-        
-        //Login function.
         
         public static List<string> HashSalt(string Pass, byte[] Salt)
         {

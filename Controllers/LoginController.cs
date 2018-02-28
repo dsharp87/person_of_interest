@@ -54,7 +54,7 @@ namespace person_of_interest.Controllers {
                     LastName = currentUser.LastName,
                     ConnectionID = currentUser.ConnectionID,
                     UserID = currentUser.UserID,
-                }
+                };
                 _context.Add(newUser);
                 _context.SaveChanges();
                 HttpContext.Session.SetObjectAsJson("currentUser", NewSlimUser);
@@ -75,7 +75,7 @@ namespace person_of_interest.Controllers {
                 LastName = currentUser.LastName,
                 ConnectionID = currentUser.ConnectionID,
                 UserID = currentUser.UserID,
-            }
+            };
             //Compare passwords
             byte[] Salt = Convert.FromBase64String (currentUser.Salt);
             string HashSaltedPswd = CreatePasswordHash(currentUser.Password, Salt);

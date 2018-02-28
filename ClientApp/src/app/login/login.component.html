@@ -29,15 +29,15 @@
         
         <p><input type="submit" value="REGISTER!!"></p>
       </form>
-      {{ User | json }}
+      
     </fieldset>
   </div>
   <div class="log_form">
     <fieldset>
       <legend><b>Login</b></legend>
         <form #logForm = "ngForm" (submit)="LoginUser()">
-          <p><input type="text" name="name" placeholder="Name" [(ngModel)] = "User.name" #name = "ngModel" required></p>
-          <p class="errors" *ngIf="!name.valid && (name.dirty || name.touched)" >First name is required</p>
+          <p><input type="text" name="Email" placeholder="Email" [(ngModel)] = "User.Email" #Email = "ngModel" required></p>
+          <p class="errors" *ngIf="!Email.valid && (Email.dirty || Email.touched)" >Email is required</p>
           <p><input type="text" name="Password" placeholder="Password" [(ngModel)] = "User.Password" #Password = "ngModel" required></p>
           <p class="errors" *ngIf="!Password.valid && (Password.dirty || Password.touched)" >Password is required</p>
           <input type="submit" value="submit">

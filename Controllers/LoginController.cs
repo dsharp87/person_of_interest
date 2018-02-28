@@ -60,18 +60,18 @@ namespace person_of_interest.Controllers
                 };
                 _context.Add(newUser);
                 _context.SaveChanges();
-                HttpContext.Session.SetObjectAsJson("currentUser", newUser);
+                // HttpContext.Session.SetObjectAsJson("currentUser", newUser);
                 return;
             }
+        }
 
-            // public void LoginUser(User logUser)
-            // {
-            //     var currentUser = _context.Users.SingleOrDefault(user => user.Email == logUser.Email);
-            //         HttpContext.Session.SetObjectAsJson("currentUser", currentUser);
-            //         RedirectToAction("");
-                
-            //     return;
-            // }
+        [HttpPost("[action]")]
+        public void LoginUser([FromBody] LoginUserModel logUser)
+        {
+            var currentUser = _context.Users.SingleOrDefault(user => user.Email == logUser.Email);
+            // HttpContext.Session.SetObjectAsJson("currentUser", currentUser);
+            // RedirectToAction("");
+            return;
         }
 
         public class RegisterUserModel
@@ -81,9 +81,15 @@ namespace person_of_interest.Controllers
             public string Email { get; set; }
             public string Password { get; set; }
         }
+
+        public class LoginUserModel
+        {
+            public string Email { get; set; }
+            public string Password { get; set; }
+        }
+        
         //Login function.
         
-
         public static List<string> HashSalt(string Pass)
         {
             // generate a 128-bit salt using a secure PRNG

@@ -35,12 +35,7 @@ export class LoginComponent implements OnInit {
 
   public LoginUser()
   {
-    this._http.post(this.baseUrl + 'Login/LoginUser', this.User).subscribe(result => { console.log('hi')}, error => console.error(error));
+    this._http.post(this.baseUrl + 'Login/LoginUser', this.User).subscribe(result => { this._router.navigate(["/"]) }, error => console.error(error));
   }
-
-  // public HashPass()
-  // {
-    
-  // }
-
+  
 }

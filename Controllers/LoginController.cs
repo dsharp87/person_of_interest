@@ -36,7 +36,7 @@ namespace person_of_interest.Controllers {
 
         //Register function.
         [HttpPost ("[action]")]
-        public void RegisterUser ([FromBody] RegisterUserModel regUser) {
+        public Object RegisterUser ([FromBody] RegisterUserModel regUser) {
             var currentUser = _context.users.SingleOrDefault (user => user.Email == regUser.Email);
             if (currentUser == null) {
 
@@ -59,8 +59,9 @@ namespace person_of_interest.Controllers {
                 _context.Add(newUser);
                 _context.SaveChanges();
                 HttpContext.Session.SetObjectAsJson("currentUser", NewSlimUser);
-                return;
+                return NewSlimUser;
             }
+            return BadRequest ("User with this email already exists. Please specify use a different email address");
         }
 
         [HttpPost ("[action]")]
@@ -85,7 +86,8 @@ namespace person_of_interest.Controllers {
                 HttpContext.Session.SetObjectAsJson ("currentUser", NewSlimUser);
                 return NewSlimUser;
             }
-            else{ return BadRequest("Password does not match!");};
+            else{
+                return BadRequest("Password does not match!");};
         }
 
         public static byte[] CreateByteSalt () {
@@ -106,19 +108,6 @@ namespace person_of_interest.Controllers {
             return HashedPassString;
         }
 
-        public class RegisterUserModel {
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public string Email { get; set; }
-            public string Password { get; set; }
-        }
-
-        public class LoginUserModel
-        {
-            public string Email { get; set; }
-            public string Password { get; set; }
-        }
-        
         public static List<string> HashSalt(string Pass, byte[] Salt)
         {
             // generate a 128-bit salt using a secure PRNG

@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
   User: object; 
   LogUser: object;
   baseUrl: string;
+  LoginError:string
+  RegisterError:string
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string)
   {
@@ -27,6 +29,8 @@ export class LoginComponent implements OnInit {
       Password : '',
     }
 
+    this.LoginError =""
+    this.RegisterError =""
 
     this.baseUrl = baseUrl;
   }
@@ -36,12 +40,22 @@ export class LoginComponent implements OnInit {
 
   public RegisterUser()
   {
-    this._http.post(this.baseUrl + 'Login/RegisterUser', this.User).subscribe(result => { this._router.navigate(["/"]) }, error => console.error(error));
+    this._http.post(this.baseUrl + 'Login/RegisterUser', this.User).subscribe(result => { 
+      this._router.navigate(["/"]) }, 
+      error => {
+        console.error(error);
+        this.RegisterError = error.error;
+      });
   }
 
   public LoginUser()
   {
-    this._http.post(this.baseUrl + 'Login/LoginUser', this.User).subscribe(result => { this._router.navigate(["/"]) }, error => console.error(error));
+    this._http.post(this.baseUrl + 'Login/LoginUser', this.LogUser).subscribe(result => { 
+      this._router.navigate(["/"]) }, 
+      error => {
+        console.error(error);
+        this.LoginError = error.error;
+      });
   }
   
 }

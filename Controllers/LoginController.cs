@@ -44,37 +44,8 @@ namespace person_of_interest.Controllers
         [HttpPost("[action]")]
         public void RegisterUser([FromBody] RegisterUserModel regUser)
         {
-<<<<<<< HEAD
             var currentUser = _context.users.SingleOrDefault(user => user.Email == regUser.Email);
-            if(ModelState.IsValid && currentUser == null)
-                {
-                    User newUser = new User
-                    {
-                        FirstName = regUser.FirstName,
-                        LastName = regUser.LastName,
-                        Email = regUser.Email,
-                        Password = regUser.Password,
-                        CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now,
-                    };
-                    _context.Add(newUser);
-                    _context.SaveChanges();
-                    HttpContext.Session.SetObjectAsJson("currentUser", newUser);
-                    return RedirectToAction("Success");
-                }else{
-                    ViewBag.errors = ModelState.Values;
-                    return View("Index");
-                }
-        }
-        //Login function.
-        public IActionResult LoginUser(User logUser)
-        {
-            var currentUser = _context.users.SingleOrDefault(user => user.Email == logUser.Email);
-            if(currentUser != null && currentUser.Password == logUser.Password)
-=======
-            var currentUser = _context.Users.SingleOrDefault(user => user.Email == regUser.Email);
             if (currentUser == null)
->>>>>>> tyler
             {
                 
                 List<string> HashRes = HashSalt(regUser.Password);
@@ -102,6 +73,7 @@ namespace person_of_interest.Controllers
             //     return;
             // }
         }
+
 
         public class RegisterUserModel
         {

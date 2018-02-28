@@ -8,16 +8,16 @@ using person_of_interest.Models;
 
 namespace person_of_interest.Controllers {
     [Route ("[controller]")]
-    public class ChatController : Controller {
+    public class UserController : Controller {
         private ProjectContext _context;
-        public ChatController (ProjectContext context) {
+        public UserController (ProjectContext context) {
             _context = context;
         }
 
         [HttpGet ("[action]")]
-        public List<User> OnlineUsers() {
-            List<User> OnlineUsers = _context.users.Where(u => u.ConnectionID != "").ToList();
-            return OnlineUsers;
+        public User CheckSession () {
+            User currentUser = HttpContext.Session.GetObjectFromJson<User> ("currentUser");
+            return currentUser;
         }
 
     }

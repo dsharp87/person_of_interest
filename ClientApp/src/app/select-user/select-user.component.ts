@@ -8,8 +8,8 @@ import { Http } from '@angular/http';
   styleUrls: ['./select-user.component.css']
 })
 export class SelectUserComponent implements OnInit {
-  online_users : Object[];
-  user : Object;
+  online_users : object[];
+  user : object;
   baseUrl : String;
   constructor(private _http:Http, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
@@ -21,15 +21,21 @@ export class SelectUserComponent implements OnInit {
   }
 
   checkSession(){
-    this._http.get(this.baseUrl+'/chat/getsession').subscribe(
+    this._http.get(this.baseUrl+'User/GetSession').subscribe(
       (result) => {
-        this.user = result
+        console.log(result);
+        this.user = result;
       }, error => console.error(error)
     )
   }
 
   find_online_users(){
-
+    this._http.get(this.baseUrl+'Chat/OnlineUsers').subscribe(
+      (result) => {
+        console.log(result);
+        this.online_users = [result];
+      }, error => console.error(error)
+    );
   }
 
 }

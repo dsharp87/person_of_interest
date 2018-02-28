@@ -19,6 +19,5 @@ namespace person_of_interest.Controllers {
             List<User> OnlineUsers = _context.users.Where(u => u.ConnectionID != "").ToList();
             return OnlineUsers;
         }
-
     }
 }

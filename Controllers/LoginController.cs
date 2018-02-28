@@ -49,27 +49,20 @@ namespace person_of_interest.Controllers {
                     Salt = HashRes[0],
 
                 };
-                _context.Add (newUser);
-                _context.SaveChanges ();
-                HttpContext.Session.SetObjectAsJson ("currentUser", newUser);
+                _context.Add(newUser);
+                _context.SaveChanges();
+                // HttpContext.Session.SetObjectAsJson("currentUser", newUser);
                 return;
             }
         }
 
-        [HttpPost ("[action]")]
-
-        public User LoginUser (User logUser) {
-            var currentUser = _context.users.SingleOrDefault (user => user.Email == logUser.Email);
-            if (currentUser == null) {
-                //SOME ERROR MESSAGE FOR FRONT END
-                return currentUser;
-            }
-            //Compare passwords
-            byte[] Salt = Convert.FromBase64String (currentUser.Salt);
-            HttpContext.Session.SetObjectAsJson ("currentUser", currentUser);
-            RedirectToAction ("");
-
-            return currentUser;
+        [HttpPost("[action]")]
+        public void LoginUser([FromBody] LoginUserModel logUser)
+        {
+            var currentUser = _context.Users.SingleOrDefault(user => user.Email == logUser.Email);
+            // HttpContext.Session.SetObjectAsJson("currentUser", currentUser);
+            // RedirectToAction("");
+            return;
         }
 
         public static byte[] CreateByteSalt () {
@@ -86,9 +79,17 @@ namespace person_of_interest.Controllers {
             public string Email { get; set; }
             public string Password { get; set; }
         }
-        //Login function.
 
-        public static List<string> HashSalt (string Pass, byte[] Salt) {
+        public class LoginUserModel
+        {
+            public string Email { get; set; }
+            public string Password { get; set; }
+        }
+        
+        //Login function.
+        
+        public static List<string> HashSalt(string Pass)
+        {
             // generate a 128-bit salt using a secure PRNG
             // byte[] Salt = new byte[128 / 8];
             // using (var Rng = RandomNumberGenerator.Create ()) {

@@ -34,19 +34,19 @@ export class ChatroomComponent implements OnInit {
 
   ngOnInit() {
     this.checkSession();
-    // this._hubConnection = new HubConnection('/chathub');
-    // this._hubConnection.on('Send', (data: any) => {
-    //   const received = `${data}`;
-    //   this.messages.push(received);
-    // });
+    this._hubConnection = new HubConnection('/chathub');
+    this._hubConnection.on('Send', (data: any) => {
+      const received = `${data}`;
+      this.messages.push(received);
+    });
 
-    // this._hubConnection.start()
-    //   .then(() => {
-    //     console.log('Hub connection started')
-    //   })
-    //   .catch(err => {
-    //     console.log('Error while establishing connection')
-    //   });
+    this._hubConnection.start()
+      .then(() => {
+        console.log('Hub connection started')
+      })
+      .catch(err => {
+        console.log('Error while establishing connection')
+      });
   }
 
   checkSession(){
@@ -59,19 +59,19 @@ export class ChatroomComponent implements OnInit {
         console.log("my result is", result);
         this.user = result;
         this.find_online_users();
-        this._hubConnection = new HubConnection('/chathub');
-        this._hubConnection.on('Send', (data: any) => {
-          const received = `${data}`;
-          this.messages.push(received);
-        });
+        // this._hubConnection = new HubConnection('/chathub');
+        // this._hubConnection.on('Send', (data: any) => {
+        //   const received = `${data}`;
+        //   this.messages.push(received);
+        // });
     
-        this._hubConnection.start()
-          .then(() => {
-            console.log('Hub connection started')
-          })
-          .catch(err => {
-            console.log('Error while establishing connection')
-          });
+        // this._hubConnection.start()
+        //   .then(() => {
+        //     console.log('Hub connection started')
+        //   })
+        //   .catch(err => {
+        //     console.log('Error while establishing connection')
+        //   });
 
       }, error => console.error(error)
     )

@@ -32,6 +32,7 @@ namespace AspNetCoreSignalr.SignalRHubs {
             User UpdateUser = _context.users.SingleOrDefault (user => user.ConnectionID == ConnectionID);
             UpdateUser.ConnectionID = "";    
             _context.SaveChanges ();
+            Clients.All.InvokeAsync("Send","${UpdateUser.FirstName} has logged off (${UpdateUser.UserID})");
             return base.OnDisconnectedAsync (exception);
         }
 

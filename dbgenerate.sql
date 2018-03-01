@@ -50,6 +50,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `person_of_interest`.`questions` (
   `QuestionID` INT NOT NULL AUTO_INCREMENT,
   `QuestionString` VARCHAR(255) NULL,
+  `Qnum` VARCHAR(255) NULL,
   `AnswerA` VARCHAR(255) NULL,
   `AnswerB` VARCHAR(255) NULL,
   `AnswerC` VARCHAR(255) NULL,

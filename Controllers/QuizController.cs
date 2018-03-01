@@ -61,6 +61,14 @@ namespace person_of_interest.Controllers
                 _context.SaveChanges();
                 QuizResult SavedNewResult = _context.quiz_results.SingleOrDefault( quiz_result => quiz_result.UserID == QuizResult.UserID && quiz_result.QuizID == QuizResult.QuizID);
                 if (SavedNewResult != null) {
+                    SlimQuizResult SlimQuizResult  = new SlimQuizResult {
+                    QuizResultID = SavedNewResult.QuizResultID,
+                    ResultString = SavedNewResult.ResultString,
+                    QuizID = SavedNewResult.QuizID,
+                    UserID = SavedNewResult.UserID
+                };
+                    currentUser.QuizResults.Add(SlimQuizResult);
+                    HttpContext.Session.SetObjectAsJson ("currentUser", currentUser);
                     return SavedNewResult;
                 }
                 return BadRequest ("Your quiz failed for some reason");
@@ -69,6 +77,18 @@ namespace person_of_interest.Controllers
             _context.SaveChanges();
             QuizResult SavedResult = _context.quiz_results.SingleOrDefault( quiz_result => quiz_result.UserID == ExistingResult.UserID && quiz_result.QuizID == ExistingResult.QuizID);
             if (SavedResult != null) {
+                SlimQuizResult SlimQuizResult  = new SlimQuizResult {
+                    QuizResultID = ExistingResult.QuizResultID,
+                    ResultString = ExistingResult.ResultString,
+                    QuizID = ExistingResult.QuizID,
+                    UserID = ExistingResult.UserID
+                };
+                    //HARDCODED QUIZ RESULT!!! WILL NEED FORLOOP
+                    currentUser.QuizResults[0] = SlimQuizResult;
+                    //HARDCODED QUIZ RESULT!!! WILL NEED FORLOOP
+                    
+                HttpContext.Session.SetObjectAsJson ("currentUser", currentUser);
+                
                 return SavedResult;
             }
             return BadRequest ("Your quiz failed for some reason");

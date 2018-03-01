@@ -17,6 +17,11 @@ namespace person_of_interest.Models
         public string Password { get; set; }
         public string Salt { get; set; }
         public string ConnectionID { get; set; }
+        public List<QuizResult> QuizResults { get; set; }
+
+        public User() {
+            QuizResults = new List<QuizResult>();
+        }
         
     }
 }

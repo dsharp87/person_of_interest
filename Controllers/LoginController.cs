@@ -37,15 +37,18 @@ namespace person_of_interest.Controllers {
                     // Password = HashRes[1],
                     // Salt = HashRes[0],
                 };
-
-                SlimUser NewSlimUser = new SlimUser {
-                    FirstName = newUser.FirstName,
-                    LastName = newUser.LastName,
-                    ConnectionID = newUser.ConnectionID,
-                    UserID = newUser.UserID,
-                };
                 _context.Add(newUser);
                 _context.SaveChanges();
+                var JustAddedUser = _context.users.SingleOrDefault (user => user.Email == regUser.Email);
+                List<SlimQuizResult> QuizResults = new List<SlimQuizResult>();
+                SlimUser NewSlimUser = new SlimUser {
+                    FirstName = JustAddedUser.FirstName,
+                    LastName = JustAddedUser.LastName,
+                    ConnectionID = JustAddedUser.ConnectionID,
+                    UserID = JustAddedUser.UserID,
+                    QuizResults = QuizResults
+                };
+
                 HttpContext.Session.SetObjectAsJson("currentUser", NewSlimUser);
                 return NewSlimUser;
             }
@@ -54,16 +57,27 @@ namespace person_of_interest.Controllers {
 
         [HttpPost ("[action]")]
         public Object LoginUser ([FromBody] LoginUserModel logUser) {
-            var currentUser = _context.users.SingleOrDefault (user => user.Email == logUser.Email);
+            var currentUser = _context.users.Include(user => user.QuizResults).SingleOrDefault (user => user.Email == logUser.Email);
             if (currentUser == null) {
                 //SOME ERROR MESSAGE FOR FRONT END
                 return BadRequest ("User email does not exist");
+            }
+            List<SlimQuizResult> SlimQuizResults = new List<SlimQuizResult>();
+            foreach (var OneSlimQuizResult in currentUser.QuizResults) {
+                SlimQuizResult SlimQuizResult  = new SlimQuizResult {
+                    QuizResultID = OneSlimQuizResult.QuizResultID,
+                    ResultString = OneSlimQuizResult.ResultString,
+                    QuizID = OneSlimQuizResult.QuizID,
+                    UserID = OneSlimQuizResult.UserID
+                };
+                SlimQuizResults.Add(SlimQuizResult);
             }
             SlimUser NewSlimUser = new SlimUser {
                 FirstName = currentUser.FirstName,
                 LastName = currentUser.LastName,
                 ConnectionID = currentUser.ConnectionID,
                 UserID = currentUser.UserID,
+                QuizResults = SlimQuizResults
             };
             //Compare passwords
             // byte[] Salt = Convert.FromBase64String (currentUser.Salt);

@@ -48,12 +48,14 @@ namespace person_of_interest.Controllers
         [HttpPost ("[action]")]
         public Object SumbitResults([FromBody] QuizResultSubmitModel ResultModel) {
             System.Console.WriteLine(ResultModel);
-            QuizResult ExistingResult = _context.quiz_results.SingleOrDefault( quiz_result => quiz_result.UserID == 1 && quiz_result.QuizID == ResultModel.QuizID);
+            SlimUser currentUser = HttpContext.Session.GetObjectFromJson<SlimUser> ("currentUser");
+            int LoggedUserID = currentUser.UserID;
+            QuizResult ExistingResult = _context.quiz_results.SingleOrDefault( quiz_result => quiz_result.UserID == LoggedUserID && quiz_result.QuizID == ResultModel.QuizID);
             if (ExistingResult == null) {
                 QuizResult QuizResult = new QuizResult {
                 ResultString = ResultModel.ResultString,
                 QuizID = ResultModel.QuizID,
-                UserID = 1
+                UserID = LoggedUserID
                 };
                 _context.quiz_results.Add(QuizResult);
                 _context.SaveChanges();

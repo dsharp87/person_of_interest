@@ -14,6 +14,7 @@ export class QuizComponent implements OnInit {
   Questions: Question[];
   baseUrl:String;
   QuizError: string;
+  user:object
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
@@ -43,7 +44,7 @@ export class QuizComponent implements OnInit {
     }
     this._http.post(this.baseUrl + 'Quizes/Quiz/SumbitResults', ResultModel).subscribe(result => {
       console.log(result);
-      this._router.navigate(["/"]);
+      this._router.navigate(["/landing"]);
     }, error => {
       console.error(error);
       this.QuizError = error.error;
@@ -51,9 +52,26 @@ export class QuizComponent implements OnInit {
   }
 
 
+  checkSession(){
+    console.log(this.baseUrl+'User/CheckSession');
+    this._http.get(this.baseUrl+'User/CheckSession').subscribe(
+      (result) => {
+        if (result == null) {
+          this._router.navigate(["/login"])
+        }
+        // console.log("my result is", result);
+        this.user = result;
+        // this.find_online_users();
+      }, error => console.error(error)
+    )
+  }
+
   ngOnInit() {
+    this.checkSession();
     this._route.params.subscribe((params: Params) => this.Id = params.id);
   }
+
+
 
   
 }

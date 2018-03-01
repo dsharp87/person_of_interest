@@ -45,17 +45,30 @@ namespace person_of_interest.Controllers
         }
 
         [HttpPost ("[action]")]
-        public QuizResult SumbitResults([FromBody] QuizResultSubmitModel ResultModel) {
+        public Object SumbitResults([FromBody] QuizResultSubmitModel ResultModel) {
             System.Console.WriteLine(ResultModel);
-            QuizResult QuizResult = new QuizResult {
+            QuizResult ExistingResult = _context.quiz_results.SingleOrDefault( quiz_result => quiz_result.UserID == 1 && quiz_result.QuizID == ResultModel.QuizID);
+            if (ExistingResult == null) {
+                QuizResult QuizResult = new QuizResult {
                 ResultString = ResultModel.ResultString,
                 QuizID = ResultModel.QuizID,
                 UserID = 1
-            };
-            _context.quiz_results.Add(QuizResult);
+                };
+                _context.quiz_results.Add(QuizResult);
+                _context.SaveChanges();
+                QuizResult SavedNewResult = _context.quiz_results.SingleOrDefault( quiz_result => quiz_result.UserID == QuizResult.UserID && quiz_result.QuizID == QuizResult.QuizID);
+                if (SavedNewResult != null) {
+                    return SavedNewResult;
+                }
+                return BadRequest ("Your quiz failed for some reason");
+            }
+            ExistingResult.ResultString = ResultModel.ResultString;
             _context.SaveChanges();
-            QuizResult SavedResult = _context.quiz_results.SingleOrDefault( quiz_result => quiz_result.UserID == QuizResult.UserID && quiz_result.QuizID == QuizResult.QuizID);
-        return SavedResult;
+            QuizResult SavedResult = _context.quiz_results.SingleOrDefault( quiz_result => quiz_result.UserID == ExistingResult.UserID && quiz_result.QuizID == ExistingResult.QuizID);
+            if (SavedResult != null) {
+                return SavedResult;
+            }
+            return BadRequest ("Your quiz failed for some reason");
         }
     }
 }

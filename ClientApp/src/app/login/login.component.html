@@ -10,7 +10,7 @@
   <div class="reg_form">
     <fieldset>
       <legend><b>Register</b></legend>
-      <form #registerForm="ngForm" (submit)="RegisterUser()" name="formdata">
+      <form (submit)="RegisterUser()" name="registerform"  #registerform="ngForm">
         <p><input type="text" name="FirstName" [(ngModel)] = "User.FirstName" #FirstName="ngModel" placeholder="First Name" required></p>
         <p class="errors" *ngIf="!FirstName.valid && (FirstName.dirty || FirstName.touched)" >First name is required</p>
         
@@ -23,29 +23,31 @@
         <p><input type="text" name="Password" [(ngModel)] = "User.Password" #Password="ngModel" pattern="^([a-zA-Z0-9@*#]{8,15})$" placeholder="Password" required></p>
         <p class="errors" *ngIf="!Password.valid && (Password.dirty || Password.touched)" >Password is required</p>
 
-        <p><input type="text" name="cPassword" [(ngModel)] = "User.cPassword" #cPassword="ngModel"pattern="^([a-zA-Z0-9@*#])$" placeholder="Confirm Password" required></p>
+        <p><input type="text" name="cPassword" [(ngModel)] = "User.cPassword" #cPassword="ngModel" pattern="^([a-zA-Z0-9@*#]{8,15})$" placeholder="Confirm Password" required></p>
         <p class="errors" *ngIf="!cPassword.valid && User.cPassword !== User.Password && (cPassword.dirty || cPassword.touched)" required>Confirm Password is required</p>
         <p class="errors" *ngIf="User.cPassword != User.Password">Passwords do not match.</p>
         
-        <p><input type="submit" value="REGISTER!!"></p>
+        <p><input type="submit" value="REGISTER!!" [disabled]="!registerform.valid"></p>
         <p>{{RegisterError}}</p>
+
       </form>
-      
     </fieldset>
   </div>
+      
+    
+  
   <div class="log_form">
     <fieldset>
       <legend><b>Login</b></legend>
-        <form #logForm = "ngForm" (submit)="LoginUser()">
-          <p><input type="text" name="Email" placeholder="Email" [(ngModel)] = "LogUser.Email" #Email = "ngModel" required></p>
-          <p class="errors" *ngIf="!Email.valid && (Email.dirty || Email.touched)" >Email is required</p>
-          <p><input type="text" name="Password" placeholder="Password" [(ngModel)] = "LogUser.Password" #Password = "ngModel" required></p>
-          <p class="errors" *ngIf="!Password.valid && (Password.dirty || Password.touched)" >Password is required</p>
-          <input type="submit" value="submit">
+        <form (submit)="LoginUser()" name="loginform" #loginform="ngForm">
+          <p><input type="text" name="LoginEmail" placeholder="Email" [(ngModel)] = "LogUser.Email" #LoginEmail = "ngModel" required></p>
+          <p class="errors" *ngIf="!LoginEmail.valid && (LoginEmail.dirty || LoginEmail.touched)" >Email is required</p>
+          <p><input type="text" name="LoginPassword" placeholder="Password" [(ngModel)] = "LogUser.Password" #LoginPassword = "ngModel" required></p>
+          <p class="errors" *ngIf="!LoginPassword.valid && (LoginPassword.dirty || LoginPassword.touched)" >Password is required</p>
+          <input type="submit" value="submit" [disabled]="!loginform.valid">
         </form>
         <p>{{LoginError}}</p>
     </fieldset>
-    
   </div>
 
 </body>

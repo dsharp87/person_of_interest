@@ -6,7 +6,7 @@
 
 <h3>{{ QuizTitle }} Quiz</h3>
 
-<form (submit)="SubmitAnswers()" name="formdata">
+<form (submit)="SubmitAnswers()" name="quizform" #quizform="ngForm">
     <h3>{{ Questions[0].questionString }}</h3>
     <input type="radio" name="answer1" value="A" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerA }}
     <input type="radio" name="answer1" value="B" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerB }}
@@ -37,5 +37,6 @@
     <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerC }}
     <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerD }}
     <hr>
-    <input type="submit" value="GO" [disabled]= "formdata.status == 'INVALID'">
+    <input type="submit" value="GO" [disabled]="!quizform.valid">
+    <p>{{QuizError}}</p>
 </form>

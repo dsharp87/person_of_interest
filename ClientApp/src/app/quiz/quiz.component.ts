@@ -13,10 +13,12 @@ export class QuizComponent implements OnInit {
   Answers: object;
   Questions: Question[];
   baseUrl:String;
+  QuizError: string;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
+    this.QuizError = "";
     this._http.get(baseUrl + 'Quizes/Quiz/GetQuiz/1').subscribe(result => {
       console.log(result);
       this.Questions = result["questions"];
@@ -42,7 +44,10 @@ export class QuizComponent implements OnInit {
     this._http.post(this.baseUrl + 'Quizes/Quiz/SumbitResults', ResultModel).subscribe(result => {
       console.log(result);
       this._router.navigate(["/"]);
-    }, error => console.error(error))
+    }, error => {
+      console.error(error);
+      this.QuizError = error.error;
+    });
   }
 
 

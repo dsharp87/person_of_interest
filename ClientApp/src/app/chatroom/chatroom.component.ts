@@ -19,7 +19,7 @@ export class ChatroomComponent implements OnInit {
   baseUrl : String;
 
   constructor(private _http:HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.user = {first_name : "Per"};
+    this.user = {firstName : "Per"};
     this.baseUrl = baseUrl;
    }
 
@@ -33,28 +33,42 @@ export class ChatroomComponent implements OnInit {
 
   ngOnInit() {
     this.checkSession();
-    this._hubConnection = new HubConnection('/chathub');
-    this._hubConnection.on('Send', (data: any) => {
-      const received = `${data}`;
-      this.messages.push(received);
-    });
+    // this._hubConnection = new HubConnection('/chathub');
+    // this._hubConnection.on('Send', (data: any) => {
+    //   const received = `${data}`;
+    //   this.messages.push(received);
+    // });
 
-    this._hubConnection.start()
-      .then(() => {
-        console.log('Hub connection started')
-      })
-      .catch(err => {
-        console.log('Error while establishing connection')
-      });
+    // this._hubConnection.start()
+    //   .then(() => {
+    //     console.log('Hub connection started')
+    //   })
+    //   .catch(err => {
+    //     console.log('Error while establishing connection')
+    //   });
   }
 
   checkSession(){
-    console.log(this.baseUrl+'User/CheckSession');
-    this._http.get(this.baseUrl+'User/CheckSession').subscribe(
+    console.log(this.baseUrl+'User/CheckSessionCookieMaker');
+    this._http.get(this.baseUrl+'User/CheckSessionCookieMaker').subscribe(
       (result) => {
         console.log(result);
         this.user = result;
-        // this.find_online_users();
+        this.find_online_users();
+        this._hubConnection = new HubConnection('/chathub');
+        this._hubConnection.on('Send', (data: any) => {
+          const received = `${data}`;
+          this.messages.push(received);
+        });
+    
+        this._hubConnection.start()
+          .then(() => {
+            console.log('Hub connection started')
+          })
+          .catch(err => {
+            console.log('Error while establishing connection')
+          });
+
       }, error => console.error(error)
     )
   }

@@ -15,7 +15,13 @@ export class HomeComponent {
     this.checkSession();
   }
 
+  NavigateToQuiz() {
+    this._router.navigate(["/quiz/1"])
+  }
 
+  NavigateToChat() {
+    this._router.navigate(["/chat"])
+  }
 
   checkSession(){
     console.log(this.baseUrl+'User/CheckSession');

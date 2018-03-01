@@ -51,6 +51,10 @@ export class QuizComponent implements OnInit {
     });
   }
 
+  NavigateToHome() {
+    this._router.navigate(["/landing"])
+  }
+
 
   checkSession(){
     console.log(this.baseUrl+'User/CheckSession');

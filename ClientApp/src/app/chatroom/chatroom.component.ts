@@ -31,6 +31,9 @@ export class ChatroomComponent implements OnInit {
     // this.messages.push(data);
   }
 
+  NavigateToHome() {
+    this._router.navigate(["/landing"])
+  }
 
   ngOnInit() {
     this.checkSession();

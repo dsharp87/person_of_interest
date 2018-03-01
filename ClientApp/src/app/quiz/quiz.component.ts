@@ -14,7 +14,11 @@ export class QuizComponent implements OnInit {
   Questions: Question[];
   baseUrl:String;
   QuizError: string;
+<<<<<<< HEAD
   user:object
+=======
+  CompletedQuestion: number;
+>>>>>>> tyler
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
@@ -31,7 +35,17 @@ export class QuizComponent implements OnInit {
       a2:"",
       a3:"",
       a4:"",
-      a5:""
+      a5:"",
+      a6:"",
+      a7:"",
+      a8:"",
+      a9:"",
+      a10:"",
+      a11:"",
+      a12:"",
+      a13:"",
+      a14:"",
+      a15:"",
     };
    }
 
@@ -73,6 +87,15 @@ export class QuizComponent implements OnInit {
   ngOnInit() {
     this.checkSession();
     this._route.params.subscribe((params: Params) => this.Id = params.id);
+    this.CompletedQuestion = 0;
+  }
+  select(string)
+  {
+    if (string == "question1")
+    {
+      this.CompletedQuestion = 1;
+    }
+    
   }
 
 

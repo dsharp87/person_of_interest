@@ -11,36 +11,141 @@
 <h3>{{ QuizTitle }} Quiz</h3>
 
 <form (submit)="SubmitAnswers()" name="quizform" #quizform="ngForm">
-    <h3>{{ Questions[0].questionString }}</h3>
-    <input type="radio" name="answer1" value="A" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerA }}
-    <input type="radio" name="answer1" value="B" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerB }}
-    <input type="radio" name="answer1" value="C" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerC }}
-    <input type="radio" name="answer1" value="D" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerD }}
+    <div *ngIf="Answers['a4'] == ''">
+        <h3>{{ Questions[0].questionString }}</h3>
+        1<input type="radio" name="answer1" value="A" (click)="select()" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerA }}
+        <input type="radio" name="answer1" value="B" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerB }}
+        <input type="radio" name="answer1" value="C" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerC }}
+        <input type="radio" name="answer1" value="D" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerD }}
+    </div>
     <hr>
-    <h3>{{ Questions[1].questionString }}</h3>
-    <input type="radio" name="answer2" value="A" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerA }}
-    <input type="radio" name="answer2" value="B" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerB }}
-    <input type="radio" name="answer2" value="C" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerC }}
-    <input type="radio" name="answer2" value="D" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerD }}
-    <hr>
-    <h3>{{ Questions[2].questionString }}</h3>
-    <input type="radio" name="answer3" value="A" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerA }}
-    <input type="radio" name="answer3" value="B" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerB }}
-    <input type="radio" name="answer3" value="C" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerC }}
-    <input type="radio" name="answer3" value="D" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerD }}
-    <hr>
-    <h3>{{ Questions[3].questionString }}</h3>
-    <input type="radio" name="answer4" value="A" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerA }}
-    <input type="radio" name="answer4" value="B" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerB }}
-    <input type="radio" name="answer4" value="C" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerC }}
-    <input type="radio" name="answer4" value="D" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerD }}
-    <hr>
-    <h3>{{ Questions[4].questionString }}</h3>
-    <input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerA }}
-    <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerB }}
-    <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerC }}
-    <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerD }}
-    <hr>
-    <input type="submit" value="GO" [disabled]="!quizform.valid">
-    <p>{{QuizError}}</p>
+    <div>
+        <h3>{{ Questions[1].questionString }}</h3>
+        2<input type="radio" name="answer2" value="A" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerA }}
+        <input type="radio" name="answer2" value="B" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerB }}
+        <input type="radio" name="answer2" value="C" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerC }}
+        <input type="radio" name="answer2" value="D" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerD }}
+        <hr>
+    </div>
+    
+    <div>
+        <h3>{{ Questions[2].questionString }}</h3>
+        3<input type="radio" name="answer3" value="A" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerA }}
+        <input type="radio" name="answer3" value="B" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerB }}
+        <input type="radio" name="answer3" value="C" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerC }}
+        <input type="radio" name="answer3" value="D" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a1'] != '' && Answers['a2'] != '' && Answers['a3'] != ''">
+        <h3>{{ Questions[3].questionString }}</h3>
+        4<input type="radio" name="answer4" value="A" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerA }}
+        <input type="radio" name="answer4" value="B" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerB }}
+        <input type="radio" name="answer4" value="C" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerC }}
+        <input type="radio" name="answer4" value="D" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a4'] != ''">
+        <h3>{{ Questions[4].questionString }}</h3>
+        5<input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerA }}
+        <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerB }}
+        <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerC }}
+        <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a3'] != '' && Answers['a4'] != '' && Answers['a5'] != ''">
+        <h3>{{ Questions[5].questionString }}</h3>
+        6<input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a6'>{{ Questions[5].answerA }}
+        <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a6'>{{ Questions[5].answerB }}
+        <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a6'>{{ Questions[5].answerC }}
+        <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a6'>{{ Questions[5].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a4'] != '' && Answers['a5'] != '' && Answers['a6'] != ''">
+        <h3>{{ Questions[6].questionString }}</h3>
+        7<input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a7'>{{ Questions[6].answerA }}
+        <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a7'>{{ Questions[6].answerB }}
+        <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a7'>{{ Questions[6].answerC }}
+        <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a7'>{{ Questions[6].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a5'] != '' && Answers['a6'] != '' && Answers['a7'] != ''">
+        <h3>{{ Questions[7].questionString }}</h3>
+        8<input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a8'>{{ Questions[7].answerA }}
+        <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a8'>{{ Questions[7].answerB }}
+        <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a8'>{{ Questions[7].answerC }}
+        <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a8'>{{ Questions[7].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a6'] != '' && Answers['a7'] != '' && Answers['a8'] != ''">
+        <h3>{{ Questions[8].questionString }}</h3>
+        9<input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a9'>{{ Questions[8].answerA }}
+        <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a9'>{{ Questions[8].answerB }}
+        <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a9'>{{ Questions[8].answerC }}
+        <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a9'>{{ Questions[8].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a7'] != '' && Answers['a8'] != '' && Answers['a9'] != ''">
+        <h3>{{ Questions[9].questionString }}</h3>
+        10<input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a10'>{{ Questions[9].answerA }}
+        <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a10'>{{ Questions[9].answerB }}
+        <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a10'>{{ Questions[9].answerC }}
+        <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a10'>{{ Questions[9].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a8'] != '' && Answers['a9'] != '' && Answers['a10'] != ''">
+        <h3>{{ Questions[10].questionString }}</h3>
+        11<input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a11'>{{ Questions[10].answerA }}
+        <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a11'>{{ Questions[10].answerB }}
+        <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a11'>{{ Questions[10].answerC }}
+        <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a11'>{{ Questions[10].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a9'] != '' && Answers['a10'] != '' && Answers['a11'] != ''">
+        <h3>{{ Questions[11].questionString }}</h3>
+        12<input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a12'>{{ Questions[11].answerA }}
+        <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a12'>{{ Questions[11].answerB }}
+        <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a12'>{{ Questions[11].answerC }}
+        <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a12'>{{ Questions[11].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a10'] != '' && Answers['a11'] != '' && Answers['a12'] != ''">
+        <h3>{{ Questions[12].questionString }}</h3>
+        13<input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a13'>{{ Questions[12].answerA }}
+        <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a13'>{{ Questions[12].answerB }}
+        <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a13'>{{ Questions[12].answerC }}
+        <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a13'>{{ Questions[12].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a11'] != '' && Answers['a12'] != '' && Answers['a13'] != ''">
+        <h3>{{ Questions[13].questionString }}</h3>
+        14<input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a14'>{{ Questions[13].answerA }}
+        <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a14'>{{ Questions[13].answerB }}
+        <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a14'>{{ Questions[13].answerC }}
+        <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a14'>{{ Questions[13].answerD }}
+        <hr>
+    </div>
+    
+    <div *ngIf="Answers['a12'] != '' && Answers['a13'] != '' && Answers['a14'] != ''">
+        <h3>{{ Questions[14].questionString }}</h3>
+        15<input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a15'>{{ Questions[14].answerA }}
+        <input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a15'>{{ Questions[14].answerB }}
+        <input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a15'>{{ Questions[14].answerC }}
+        <input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a15'>{{ Questions[14].answerD }}
+        <hr>
+    </div>
+    <div>
+        <input type="submit" value="GO" [disabled]="!quizform.valid">
+        <p>{{QuizError}}</p>
+    </div>
 </form>

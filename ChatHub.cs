@@ -20,21 +20,21 @@ namespace AspNetCoreSignalr.SignalRHubs {
 
         public override Task OnConnectedAsync () {
             // SlimUser currentUser = _accessor.HttpContext.Session.GetObjectFromJson<SlimUser> ("currentUser");
-            int SessionUserID =(int) _accessor.HttpContext.Session.GetInt32("UserID");
+            // int SessionUserID =(int) _accessor.HttpContext.Session.GetInt32("UserID");
             var ConnectionID = Context.ConnectionId;
-            User UpdateUser = _context.users.SingleOrDefault (user => user.UserID == SessionUserID);
+            // User UpdateUser = _context.users.SingleOrDefault (user => user.UserID == SessionUserID);
 
-            UpdateUser.ConnectionID = ConnectionID;
-            _context.SaveChanges ();
+            // UpdateUser.ConnectionID = ConnectionID;
+            // _context.SaveChanges ();
             return base.OnConnectedAsync ();
         }
 
         public override Task OnDisconnectedAsync (System.Exception exception) {
-            SlimUser currentUser = _accessor.HttpContext.Session.GetObjectFromJson<SlimUser> ("currentUser");
+            // SlimUser currentUser = _accessor.HttpContext.Session.GetObjectFromJson<SlimUser> ("currentUser");
 
-            User UpdateUser = _context.users.SingleOrDefault (user => user.UserID == currentUser.UserID);
-            UpdateUser.ConnectionID = "";    
-            _context.SaveChanges ();
+            // User UpdateUser = _context.users.SingleOrDefault (user => user.UserID == currentUser.UserID);
+            // UpdateUser.ConnectionID = "";    
+            // _context.SaveChanges ();
             return base.OnDisconnectedAsync (exception);
         }
 

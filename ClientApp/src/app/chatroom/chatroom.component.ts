@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HubConnection } from '@aspnet/signalr-client';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-chatroom',
@@ -18,7 +19,7 @@ export class ChatroomComponent implements OnInit {
   online_users : object[];
   baseUrl : String;
 
-  constructor(private _http:HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private _router: Router, private _http:HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.user = {firstName : "Per"};
     this.baseUrl = baseUrl;
    }
@@ -52,7 +53,10 @@ export class ChatroomComponent implements OnInit {
     console.log(this.baseUrl+'User/CheckSessionCookieMaker');
     this._http.get(this.baseUrl+'User/CheckSessionCookieMaker').subscribe(
       (result) => {
-        console.log(result);
+        if (result == null) {
+          this._router.navigate(["/login"])
+        }
+        console.log("my result is", result);
         this.user = result;
         this.find_online_users();
         this._hubConnection = new HubConnection('/chathub');

@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
   public RegisterUser()
   {
     this._http.post(this.baseUrl + 'Login/RegisterUser', this.User).subscribe(result => { 
-      this._router.navigate(["/"]) }, 
+      this._router.navigate(["/landing"]) }, 
       error => {
         console.error(error);
         this.RegisterError = error.error;
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
   public LoginUser()
   {
     this._http.post(this.baseUrl + 'Login/LoginUser', this.LogUser).subscribe(result => { 
-      this._router.navigate(["/"]) }, 
+      this._router.navigate(["/landing"]) }, 
       error => {
         console.error(error);
         this.LoginError = error.error;

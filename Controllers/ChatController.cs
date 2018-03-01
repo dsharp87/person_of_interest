@@ -16,8 +16,19 @@ namespace person_of_interest.Controllers {
         }
 
         [HttpGet ("[action]")]
-        public List<User> OnlineUsers() {
-            List<User> OnlineUsers = _context.users.Where(u => u.ConnectionID != "").ToList();
+        public List<SlimUser> OnlineUsers() {
+            List<User> OnlineUsersDB = _context.users.Where(u => u.ConnectionID != "").ToList();
+            List<SlimUser> OnlineUsers = new List<SlimUser>();
+            foreach(var user in OnlineUsersDB)
+            {
+                SlimUser NewSlimUser = new SlimUser {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    ConnectionID = user.ConnectionID,
+                    UserID = user.UserID,
+                };
+                OnlineUsers.Add(NewSlimUser);
+            };
             return OnlineUsers;
         }
     }

@@ -70,13 +70,16 @@ namespace person_of_interest.Controllers {
             // string HashSaltedPswd = CreatePasswordHash(currentUser.Password, Salt);
             
             // if (HashSaltedPswd == currentUser.Password){
-            if(logUser.Password == currentUser.Password){
+            if (logUser.Password == currentUser.Password) {
                 HttpContext.Session.SetObjectAsJson ("currentUser", NewSlimUser);
-                HttpContext.Session.SetInt32("UserID", currentUser.UserID);
+                HttpContext.Session.SetInt32 ("UserID", currentUser.UserID);
+                
+                
+                
                 return NewSlimUser;
-            }
-            else{
-                return BadRequest("Password does not match!");};
+            } else {
+                return BadRequest ("Password does not match!");
+            };
         }
 
         public static byte[] CreateByteSalt () {
@@ -97,8 +100,7 @@ namespace person_of_interest.Controllers {
             return HashedPassString;
         }
 
-        public static List<string> HashSalt(string Pass, byte[] Salt)
-        {
+        public static List<string> HashSalt (string Pass, byte[] Salt) {
             // generate a 128-bit salt using a secure PRNG
             // byte[] Salt = new byte[128 / 8];
             // using (var Rng = RandomNumberGenerator.Create ()) {

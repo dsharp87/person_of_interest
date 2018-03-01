@@ -7,11 +7,11 @@ using SessionExtensions;
 
 namespace AspNetCoreSignalr.SignalRHubs {
     public class ChatHub : Hub {
-        private readonly IHttpContextAccessor _accessor;
         private ProjectContext _context;
-        public ChatHub (ProjectContext context, IHttpContextAccessor accessor) {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ChatHub (ProjectContext context, IHttpContextAccessor httpContextAccessor) {
             _context = context;
-            _accessor = accessor;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public Task Send (string data) {
@@ -19,23 +19,24 @@ namespace AspNetCoreSignalr.SignalRHubs {
         }
 
         public override Task OnConnectedAsync () {
-            // SlimUser currentUser = _accessor.HttpContext.Session.GetObjectFromJson<SlimUser> ("currentUser");
-            // int SessionUserID =(int) _accessor.HttpContext.Session.GetInt32("UserID");
-            var ConnectionID = Context.ConnectionId;
-            // User UpdateUser = _context.users.SingleOrDefault (user => user.UserID == SessionUserID);
-
-            // UpdateUser.ConnectionID = ConnectionID;
-            // _context.SaveChanges ();
+            int CookieUID = int.Parse(CookieGetValue("UserID"));
+            string ConnectionID = Context.ConnectionId;
+            User UpdateUser = _context.users.SingleOrDefault (user => user.UserID == CookieUID);
+            UpdateUser.ConnectionID = ConnectionID;
+            _context.SaveChanges ();
             return base.OnConnectedAsync ();
         }
 
         public override Task OnDisconnectedAsync (System.Exception exception) {
-            // SlimUser currentUser = _accessor.HttpContext.Session.GetObjectFromJson<SlimUser> ("currentUser");
-
-            // User UpdateUser = _context.users.SingleOrDefault (user => user.UserID == currentUser.UserID);
-            // UpdateUser.ConnectionID = "";    
-            // _context.SaveChanges ();
+            string ConnectionID = Context.ConnectionId;            
+            User UpdateUser = _context.users.SingleOrDefault (user => user.ConnectionID == ConnectionID);
+            UpdateUser.ConnectionID = "";    
+            _context.SaveChanges ();
             return base.OnDisconnectedAsync (exception);
+        }
+
+        public string CookieGetValue (string key) {
+            return _httpContextAccessor.HttpContext.Request.Cookies[key];
         }
 
         // public void SendChatMessage(string who, string message)

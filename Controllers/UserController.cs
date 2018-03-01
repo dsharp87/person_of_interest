@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using person_of_interest.Models;
+using SessionExtensions;
 
 namespace person_of_interest.Controllers {
     [Route ("[controller]")]
@@ -15,8 +16,9 @@ namespace person_of_interest.Controllers {
         }
 
         [HttpGet ("[action]")]
-        public User CheckSession () {
-            User currentUser = HttpContext.Session.GetObjectFromJson<User> ("currentUser");
+        public SlimUser CheckSession () {
+            SlimUser currentUser = HttpContext.Session.GetObjectFromJson<SlimUser> ("currentUser");
+            System.Console.WriteLine(currentUser);
             return currentUser;
         }
     }

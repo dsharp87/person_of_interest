@@ -10,21 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using person_of_interest.Models;
+using SessionExtensions;
 
 namespace person_of_interest.Controllers {
-    //Static class for Session/ Session Extensions.
-    public static class SessionExtensions {
-        //Sets JSON object in Session
-        public static void SetObjectAsJson (this ISession session, string key, object value) {
-            session.SetString (key, JsonConvert.SerializeObject (value));
-        }
-
-        //Gets JSON objects from Session
-        public static T GetObjectFromJson<T> (this ISession session, string key) {
-            string value = session.GetString (key);
-            return value == null ? default (T) : JsonConvert.DeserializeObject<T> (value);
-        }
-    }
 
     [Route ("[controller]")]
     public class LoginController : Controller {
@@ -84,6 +72,7 @@ namespace person_of_interest.Controllers {
             // if (HashSaltedPswd == currentUser.Password){
             if(logUser.Password == currentUser.Password){
                 HttpContext.Session.SetObjectAsJson ("currentUser", NewSlimUser);
+                HttpContext.Session.SetInt32("UserID", currentUser.UserID);
                 return NewSlimUser;
             }
             else{

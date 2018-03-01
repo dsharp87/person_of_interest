@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using person_of_interest.Models;
+using SessionExtensions;
 
 namespace person_of_interest.Controllers
 {

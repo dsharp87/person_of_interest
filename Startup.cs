@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace person_of_interest
 {
@@ -27,8 +28,9 @@ namespace person_of_interest
         {
             services.AddDbContext<ProjectContext>(options => options.UseMySQL(Configuration["DBInfo:ConnectionString"]));
             services.AddSignalR();
-            services.AddMvc();
             services.AddSession();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddMvc();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

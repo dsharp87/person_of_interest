@@ -7,6 +7,7 @@
   <title>Document</title>
 </head>
 <body>
+  <div class="wrapper">
   <div id="headerText">
     <h1>Welcome to Person of Interest</h1>
     <h3>Match Making and Messaging Platform</h3>
@@ -14,10 +15,10 @@
   <img src="http://www.personaldevelopmentguy.com/image-files/cupid-cartoon-red-love-heart-arrowpoint.jpg" alt="cupid">
   <hr>
   <br>
-  <h4>To use the patform, please register or login if you have already registered.</h4>
   <div class="reg_form">
     <fieldset>
-      <legend><b>Register</b></legend>
+      <legend><b>Register</b><p>for a new account</p></legend>
+      
       <form (submit)="RegisterUser()" name="registerform"  #registerform="ngForm">
         <p><input type="text" name="FirstName" [(ngModel)] = "User.FirstName" #FirstName="ngModel" placeholder="First Name" required></p>
         <p class="errors" *ngIf="!FirstName.valid && (FirstName.dirty || FirstName.touched)" >First name is required</p>
@@ -35,7 +36,7 @@
         <p class="errors" *ngIf="!cPassword.valid && User.cPassword !== User.Password && (cPassword.dirty || cPassword.touched)" required>Confirm Password is required</p>
         <p class="errors" *ngIf="User.cPassword != User.Password && (cPassword.dirty || cPassword.touched)">Passwords do not match.</p>
         
-        <p><input type="submit" value="Sign Me Up For Love!" [disabled]="!registerform.valid"></p>
+        <p><input id="logRegButton" type="submit" value="Sign Me Up For Love!" [disabled]="!registerform.valid"></p>
         <p>{{RegisterError}}</p>
 
       </form>
@@ -46,17 +47,17 @@
   
   <div class="log_form">
     <fieldset>
-      <legend><b>Login</b></legend>
+      <legend><b>Login</b><p>to an existing account</p></legend>
         <form (submit)="LoginUser()" name="loginform" #loginform="ngForm">
           <p><input type="text" name="LoginEmail" placeholder="Email" [(ngModel)] = "LogUser.Email" #LoginEmail = "ngModel" required></p>
           <p class="errors" *ngIf="!LoginEmail.valid && (LoginEmail.dirty || LoginEmail.touched)" >Email is required</p>
           <p><input type="text" name="LoginPassword" placeholder="Password" [(ngModel)] = "LogUser.Password" #LoginPassword = "ngModel" required></p>
           <p class="errors" *ngIf="!LoginPassword.valid && (LoginPassword.dirty || LoginPassword.touched)" >Password is required</p>
-          <input type="submit" value="Back For More Love!" [disabled]="!loginform.valid">
+          <input id="logRegButton" type="submit" value="Back For More Love!" [disabled]="!loginform.valid">
         </form>
         <p>{{LoginError}}</p>
     </fieldset>
   </div>
-
+</div>
 </body>
 </html>

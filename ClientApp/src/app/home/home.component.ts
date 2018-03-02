@@ -15,8 +15,8 @@ export class HomeComponent {
     this.checkSession();
   }
 
-  NavigateToQuiz() {
-    this._router.navigate(["/quiz/1"])
+  NavigateToQuizSelection() {
+    this._router.navigate(["/quizSelection"])
   }
 
   NavigateToChat() {

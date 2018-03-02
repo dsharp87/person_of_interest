@@ -20,13 +20,14 @@ export class QuizComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
     this.QuizError = "";
-    this._http.get(baseUrl + 'Quizes/Quiz/GetQuiz/1').subscribe(result => {
+    this._route.params.subscribe((params: Params) => this.Id = params.id);
+    this._http.get(baseUrl + `Quizes/Quiz/GetQuiz/${this.Id}`).subscribe(result => {
       console.log(result);
       this.Questions = result["questions"];
       this.QuizTitle = result["name"];
     }, error => console.error(error))
     this.Answers = {
-      QuizID: 1,
+      QuizID: this.Id,
       a1:"",
       a2:"",
       a3:"",
@@ -82,7 +83,6 @@ export class QuizComponent implements OnInit {
 
   ngOnInit() {
     this.checkSession();
-    this._route.params.subscribe((params: Params) => this.Id = params.id);
   }
   
 }

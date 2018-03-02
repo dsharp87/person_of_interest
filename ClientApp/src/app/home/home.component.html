@@ -13,7 +13,7 @@
 <br>
 <h4>Quizes</h4>
 <p>Take quizes to help us identify your interests and desires!</p>
-<button (click)="NavigateToQuiz()">Take Quiz</button>
+<button (click)="NavigateToQuizSelection()">Take Quiz</button>
 <br>
 <br>
 <br>
@@ -25,7 +25,7 @@
 </div>
 <div *ngIf="user['quizResults'].length == 0">
     <h4>Please take a quiz before chatting. This will help us match you with people who share your interests.</h4>
-    <button (click)="NavigateToQuiz()">Take Quiz</button>
+    <button (click)="NavigateToQuizSelection()">Take Quiz</button>
 </div>
 
 {{ user | json }}

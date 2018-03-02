@@ -23,6 +23,11 @@
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/quizSelection"]' (click)='collapse()'>
+                        <span class='glyphicon glyphicon-th-list'></span> QuizSelection
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]'>
                     <a [routerLink]='["/quiz/1"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-th-list'></span> Go to quiz 1
                     </a>

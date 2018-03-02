@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace person_of_interest.Models
 {
 
-    public class SlimQuizResult : BaseEntity
+    public class SlimQuizResult
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

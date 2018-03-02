@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -10,6 +10,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { SelectUserComponent } from './select-user/select-user.component';
 import { LoginComponent } from './login/login.component';
+import { QuizSelectionComponent } from './quiz-selection/quiz-selection.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { LoginComponent } from './login/login.component';
     QuizComponent,
     ChatroomComponent,
     SelectUserComponent,
-    LoginComponent
+    LoginComponent,
+    QuizSelectionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,6 +35,7 @@ import { LoginComponent } from './login/login.component';
       { path: 'quiz/:id', component: QuizComponent},
       { path: 'findfriend', component: SelectUserComponent},
       { path: 'login', component: LoginComponent },
+      { path: 'quizSelection', component: QuizSelectionComponent},
     ])
   ],
   providers: [],

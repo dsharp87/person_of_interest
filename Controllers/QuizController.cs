@@ -21,6 +21,33 @@ namespace person_of_interest.Controllers
             _context = context;
         }
 
+        [HttpGet("[action]")]
+        public List<SlimQuiz> getAllQuizes()
+        {
+            List<Quiz> AllQuizes = _context.quizes.Include( quiz => quiz.Questions).ToList();
+            List<SlimQuiz> AllSlimQuizes = new List<SlimQuiz>();
+            foreach (var quiz in AllQuizes) {
+                SlimQuiz SlimQuiz = new SlimQuiz {
+                    QuizID = quiz.QuizID,
+                    Name = quiz.Name
+                };
+                foreach (var question in quiz.Questions) {
+                    SlimQuestion SlimQuestion = new SlimQuestion {
+                        QuestionID = question.QuestionID,
+                        Qnum = question.Qnum,
+                        QuestionString = question.QuestionString,
+                        AnswerA = question.AnswerA,
+                        AnswerB = question.AnswerB,
+                        AnswerC = question.AnswerC,
+                        AnswerD = question.AnswerD
+                    };
+                SlimQuiz.Questions.Add(SlimQuestion);
+                };
+                AllSlimQuizes.Add(SlimQuiz);
+            }; 
+            return AllSlimQuizes;
+        }
+
 
         [HttpGet("[action]/{IdNum}")]
         public SlimQuiz GetQuiz(int IdNum)

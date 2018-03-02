@@ -1,0 +1,40 @@
+#wrapper {
+    width: 80%;
+    padding:10px;
+    background-color: #E5E1DF;
+}
+
+#topBar {
+    margin-left: 90px;
+}
+
+#headerTitle {
+    vertical-align: top;
+    display: inline-block;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+h5 {
+    text-align: center;
+}
+
+.sectionTitle {
+    text-decoration: underline;
+}
+
+#dating {
+    margin-top: 10px;
+    width: 100px;
+    display: inline-block;
+}
+
+#cartoonHeart {
+    margin-top: 10px;
+    width: 100px;
+    display: inline-block;
+}

@@ -1,0 +1,14 @@
+#wrapper {
+    width: 80%;
+    padding:10px;
+    background-color: #E5E1DF;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+
+h3 {
+    text-decoration: underline;
+}

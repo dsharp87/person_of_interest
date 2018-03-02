@@ -1,12 +1,15 @@
-<button (click)="NavigateToHome()">Home</button>
-<br>
-
-<h1>Please select the quiz you would like to take</h1>
-
-<div *ngFor="let singlequiz of quizes">
-  <h3>{{ singlequiz.name }}</h3>
-  <h5>Description: {{ singlequiz.description }}</h5>
-  <h5>Number of questions: {{ singlequiz.questions.length }}</h5>
-  <button (click)="NavigateToQuizNumber(singlequiz.quizID)">Take Quiz</button>
+<div id ="wrapper">
+  <button (click)="NavigateToHome()">Return Home</button>
   <hr>
+
+  <h2>Please select the quiz you would like to take</h2>
+  <hr>
+
+  <div *ngFor="let singlequiz of quizes">
+    <h3>{{ singlequiz.name }}</h3>
+    <h5><span class ="bold">Description:</span> {{ singlequiz.description }}</h5>
+    <h5><span class ="bold">Number of questions:</span> {{ singlequiz.questions.length }}</h5>
+    <button (click)="NavigateToQuizNumber(singlequiz.quizID)">Take Quiz</button>
+    <hr>
+  </div>
 </div>

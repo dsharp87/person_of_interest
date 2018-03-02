@@ -1,149 +1,153 @@
 <script src="path/to/angular.js"></script>
 <script src="path/to/angular-animate.js"></script>
-<button (click)="NavigateToHome()">Home</button>
 
-<h3>{{ QuizTitle }} Quiz</h3>
-<h5>Description: {{ QuizDescription }}</h5>
-
-<form (submit)="SubmitAnswers()" name="quizform" #quizform="ngForm">
-    <div *ngIf="Answers['a4'] == '' || QuizIsDone == true">
-        <h3>1: {{ Questions[0].questionString }}</h3>
-        <p><input type="radio" name="answer1" value="A" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerA }}</p>
-        <p><input type="radio" name="answer1" value="B" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerB }}</p>
-        <p><input type="radio" name="answer1" value="C" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerC }}</p>
-        <p><input type="radio" name="answer1" value="D" required [(ngModel)] = 'Answers.a1'>{{ Questions[0].answerD }}</p>
-    </div>
+<div id="wrapper">
+    <button (click)="NavigateToHome()">Return Home</button>
     <hr>
-    <div *ngIf="Answers['a5'] == '' || QuizIsDone == true">
-        <h3>2:  {{ Questions[1].questionString }}</h3>
-        <p><input type="radio" name="answer2" value="A" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerA }}</p>
-        <p><input type="radio" name="answer2" value="B" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerB }}</p>
-        <p><input type="radio" name="answer2" value="C" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerC }}</p>
-        <p><input type="radio" name="answer2" value="D" required [(ngModel)] = 'Answers.a2'>{{ Questions[1].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a6'] == '' || QuizIsDone == true">
-        <h3>3:  {{ Questions[2].questionString }}</h3>
-        <p><input type="radio" name="answer3" value="A" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerA }}</p>
-        <p><input type="radio" name="answer3" value="B" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerB }}</p>
-        <p><input type="radio" name="answer3" value="C" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerC }}</p>
-        <p><input type="radio" name="answer3" value="D" required [(ngModel)] = 'Answers.a3'>{{ Questions[2].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a1'] != '' && Answers['a2'] != '' && Answers['a3'] != '' && Answers['a7'] == '' || QuizIsDone == true">
-        <h3>4:  {{ Questions[3].questionString }}</h3>
-        <p><input type="radio" name="answer4" value="A" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerA }}</p>
-        <p><input type="radio" name="answer4" value="B" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerB }}</p>
-        <p><input type="radio" name="answer4" value="C" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerC }}</p>
-        <p><input type="radio" name="answer4" value="D" required [(ngModel)] = 'Answers.a4'>{{ Questions[3].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a2'] != '' && Answers['a3'] != '' && Answers['a4'] != '' && Answers['a8'] == '' || QuizIsDone == true">
-        <h3>5:  {{ Questions[4].questionString }}</h3>
-        <p><input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerA }}</p>
-        <p><input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerB }}</p>
-        <p><input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerC }}</p>
-        <p><input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a5'>{{ Questions[4].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a3'] != '' && Answers['a4'] != '' && Answers['a5'] != '' && Answers['a9'] == '' || QuizIsDone == true">
-        <h3>6:  {{ Questions[5].questionString }}</h3>
-        <p><input type="radio" name="answer6" value="A" required [(ngModel)] = 'Answers.a6'>{{ Questions[5].answerA }}</p>
-        <p><input type="radio" name="answer6" value="B" required [(ngModel)] = 'Answers.a6'>{{ Questions[5].answerB }}</p>
-        <p><input type="radio" name="answer6" value="C" required [(ngModel)] = 'Answers.a6'>{{ Questions[5].answerC }}</p>
-        <p><input type="radio" name="answer6" value="D" required [(ngModel)] = 'Answers.a6'>{{ Questions[5].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a4'] != '' && Answers['a5'] != '' && Answers['a6'] != '' && Answers['a10'] == '' || QuizIsDone == true">
-        <h3>7:  {{ Questions[6].questionString }}</h3>
-        <p><input type="radio" name="answer7" value="A" required [(ngModel)] = 'Answers.a7'>{{ Questions[6].answerA }}</p>
-        <p><input type="radio" name="answer7" value="B" required [(ngModel)] = 'Answers.a7'>{{ Questions[6].answerB }}</p>
-        <p><input type="radio" name="answer7" value="C" required [(ngModel)] = 'Answers.a7'>{{ Questions[6].answerC }}</p>
-        <p><input type="radio" name="answer7" value="D" required [(ngModel)] = 'Answers.a7'>{{ Questions[6].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a5'] != '' && Answers['a6'] != '' && Answers['a7'] != '' && Answers['a11'] == '' || QuizIsDone == true">
-        <h3>8:  {{ Questions[7].questionString }}</h3>
-        <p><input type="radio" name="answer8" value="A" required [(ngModel)] = 'Answers.a8'>{{ Questions[7].answerA }}</p>
-        <p><input type="radio" name="answer8" value="B" required [(ngModel)] = 'Answers.a8'>{{ Questions[7].answerB }}</p>
-        <p><input type="radio" name="answer8" value="C" required [(ngModel)] = 'Answers.a8'>{{ Questions[7].answerC }}</p>
-        <p><input type="radio" name="answer8" value="D" required [(ngModel)] = 'Answers.a8'>{{ Questions[7].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a6'] != '' && Answers['a7'] != '' && Answers['a8'] != '' && Answers['a12'] == '' || QuizIsDone == true">
-        <h3>9:  {{ Questions[8].questionString }}</h3>
-        <p><input type="radio" name="answer9" value="A" required [(ngModel)] = 'Answers.a9'>{{ Questions[8].answerA }}</p>
-        <p><input type="radio" name="answer9" value="B" required [(ngModel)] = 'Answers.a9'>{{ Questions[8].answerB }}</p>
-        <p><input type="radio" name="answer9" value="C" required [(ngModel)] = 'Answers.a9'>{{ Questions[8].answerC }}</p>
-        <p><input type="radio" name="answer9" value="D" required [(ngModel)] = 'Answers.a9'>{{ Questions[8].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a7'] != '' && Answers['a8'] != '' && Answers['a9'] != '' && Answers['a13'] == '' || QuizIsDone == true">
-        <h3>10:  {{ Questions[9].questionString }}</h3>
-        <p><input type="radio" name="answer10" value="A" required [(ngModel)] = 'Answers.a10'>{{ Questions[9].answerA }}</p>
-        <p><input type="radio" name="answer10" value="B" required [(ngModel)] = 'Answers.a10'>{{ Questions[9].answerB }}</p>
-        <p><input type="radio" name="answer10" value="C" required [(ngModel)] = 'Answers.a10'>{{ Questions[9].answerC }}</p>
-        <p><input type="radio" name="answer10" value="D" required [(ngModel)] = 'Answers.a10'>{{ Questions[9].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a8'] != '' && Answers['a9'] != '' && Answers['a10'] != '' && Answers['a14'] == '' || QuizIsDone == true">
-        <h3>11:  {{ Questions[10].questionString }}</h3>
-        <p><input type="radio" name="answer11" value="A" required [(ngModel)] = 'Answers.a11'>{{ Questions[10].answerA }}</p>
-        <p><input type="radio" name="answer11" value="B" required [(ngModel)] = 'Answers.a11'>{{ Questions[10].answerB }}</p>
-        <p><input type="radio" name="answer11" value="C" required [(ngModel)] = 'Answers.a11'>{{ Questions[10].answerC }}</p>
-        <p><input type="radio" name="answer11" value="D" required [(ngModel)] = 'Answers.a11'>{{ Questions[10].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a9'] != '' && Answers['a10'] != '' && Answers['a11'] != '' && Answers['a15'] == '' || QuizIsDone == true">
-        <h3>12:  {{ Questions[11].questionString }}</h3>
-        <p><input type="radio" name="answer12" value="A" required [(ngModel)] = 'Answers.a12'>{{ Questions[11].answerA }}</p>
-        <p><input type="radio" name="answer12" value="B" required [(ngModel)] = 'Answers.a12'>{{ Questions[11].answerB }}</p>
-        <p><input type="radio" name="answer12" value="C" required [(ngModel)] = 'Answers.a12'>{{ Questions[11].answerC }}</p>
-        <p><input type="radio" name="answer12" value="D" required [(ngModel)] = 'Answers.a12'>{{ Questions[11].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a10'] != '' && Answers['a11'] != '' && Answers['a12'] != '' || QuizIsDone == true">
-        <h3>13:  {{ Questions[12].questionString }}</h3>
-        <p><input type="radio" name="answer13" value="A" required [(ngModel)] = 'Answers.a13'>{{ Questions[12].answerA }}</p>
-        <p><input type="radio" name="answer13" value="B" required [(ngModel)] = 'Answers.a13'>{{ Questions[12].answerB }}</p>
-        <p><input type="radio" name="answer13" value="C" required [(ngModel)] = 'Answers.a13'>{{ Questions[12].answerC }}</p>
-        <p><input type="radio" name="answer13" value="D" required [(ngModel)] = 'Answers.a13'>{{ Questions[12].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a11'] != '' && Answers['a12'] != '' && Answers['a13'] != '' || QuizIsDone == true">
-        <h3>14:  {{ Questions[13].questionString }}</h3>
-        <p><input type="radio" name="answer14" value="A" required [(ngModel)] = 'Answers.a14'>{{ Questions[13].answerA }}</p>
-        <p><input type="radio" name="answer14" value="B" required [(ngModel)] = 'Answers.a14'>{{ Questions[13].answerB }}</p>
-        <p><input type="radio" name="answer14" value="C" required [(ngModel)] = 'Answers.a14'>{{ Questions[13].answerC }}</p>
-        <p><input type="radio" name="answer14" value="D" required [(ngModel)] = 'Answers.a14'>{{ Questions[13].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a12'] != '' && Answers['a13'] != '' && Answers['a14'] != '' || QuizIsDone == true">
-        <h3>15:  {{ Questions[14].questionString }}</h3>
-        <p><input type="radio" name="answer15" value="A" required [(ngModel)] = 'Answers.a15'>{{ Questions[14].answerA }}</p>
-        <p><input type="radio" name="answer15" value="B" required [(ngModel)] = 'Answers.a15'>{{ Questions[14].answerB }}</p>
-        <p><input type="radio" name="answer15" value="C" required [(ngModel)] = 'Answers.a15'>{{ Questions[14].answerC }}</p>
-        <p><input type="radio" name="answer15" value="D" required [(ngModel)] = 'Answers.a15'>{{ Questions[14].answerD }}</p>
-        <hr>
-    </div>
-    
-    <div *ngIf="Answers['a15'] != '' && Answers['a14'] != '' && Answers['a13'] != ''">
-        <p><input type="submit" value="GO" [disabled]="!quizform.valid"></p>
-        <p>{{QuizError}}</p>
-    </div>
-</form>
-<p *ngIf="Answers['a15'] != '' && Answers['a14'] != '' && Answers['a13'] != ''"><button (click)="QuizCompleted()">Review your answers</button></p>
 
+    <h3>{{ QuizTitle }} Quiz</h3>
+    <h5><span class ="bold">Description:</span> {{ QuizDescription }}</h5>
+    <hr>
+
+    <form (submit)="SubmitAnswers()" name="quizform" #quizform="ngForm">
+        <div *ngIf="Answers['a4'] == '' || QuizIsDone == true">
+            <h4>1: {{ Questions[0].questionString }}</h4>
+            <p><input type="radio" name="answer1" value="A" required [(ngModel)] = 'Answers.a1'> {{ Questions[0].answerA }}</p>
+            <p><input type="radio" name="answer1" value="B" required [(ngModel)] = 'Answers.a1'> {{ Questions[0].answerB }}</p>
+            <p><input type="radio" name="answer1" value="C" required [(ngModel)] = 'Answers.a1'> {{ Questions[0].answerC }}</p>
+            <p><input type="radio" name="answer1" value="D" required [(ngModel)] = 'Answers.a1'> {{ Questions[0].answerD }}</p>
+        </div>
+        <hr>
+        <div *ngIf="Answers['a5'] == '' || QuizIsDone == true">
+            <h4>2:   {{ Questions[1].questionString }}</h4>
+            <p><input type="radio" name="answer2" value="A" required [(ngModel)] = 'Answers.a2'> {{ Questions[1].answerA }}</p>
+            <p><input type="radio" name="answer2" value="B" required [(ngModel)] = 'Answers.a2'> {{ Questions[1].answerB }}</p>
+            <p><input type="radio" name="answer2" value="C" required [(ngModel)] = 'Answers.a2'> {{ Questions[1].answerC }}</p>
+            <p><input type="radio" name="answer2" value="D" required [(ngModel)] = 'Answers.a2'> {{ Questions[1].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a6'] == '' || QuizIsDone == true">
+            <h4>3:   {{ Questions[2].questionString }}</h4>
+            <p><input type="radio" name="answer3" value="A" required [(ngModel)] = 'Answers.a3'> {{ Questions[2].answerA }}</p>
+            <p><input type="radio" name="answer3" value="B" required [(ngModel)] = 'Answers.a3'> {{ Questions[2].answerB }}</p>
+            <p><input type="radio" name="answer3" value="C" required [(ngModel)] = 'Answers.a3'> {{ Questions[2].answerC }}</p>
+            <p><input type="radio" name="answer3" value="D" required [(ngModel)] = 'Answers.a3'> {{ Questions[2].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a1'] != '' && Answers['a2'] != '' && Answers['a3'] != '' && Answers['a7'] == '' || QuizIsDone == true">
+            <h4>4:   {{ Questions[3].questionString }}</h4>
+            <p><input type="radio" name="answer4" value="A" required [(ngModel)] = 'Answers.a4'> {{ Questions[3].answerA }}</p>
+            <p><input type="radio" name="answer4" value="B" required [(ngModel)] = 'Answers.a4'> {{ Questions[3].answerB }}</p>
+            <p><input type="radio" name="answer4" value="C" required [(ngModel)] = 'Answers.a4'> {{ Questions[3].answerC }}</p>
+            <p><input type="radio" name="answer4" value="D" required [(ngModel)] = 'Answers.a4'> {{ Questions[3].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a2'] != '' && Answers['a3'] != '' && Answers['a4'] != '' && Answers['a8'] == '' || QuizIsDone == true">
+            <h4>5:   {{ Questions[4].questionString }}</h4>
+            <p><input type="radio" name="answer5" value="A" required [(ngModel)] = 'Answers.a5'> {{ Questions[4].answerA }}</p>
+            <p><input type="radio" name="answer5" value="B" required [(ngModel)] = 'Answers.a5'> {{ Questions[4].answerB }}</p>
+            <p><input type="radio" name="answer5" value="C" required [(ngModel)] = 'Answers.a5'> {{ Questions[4].answerC }}</p>
+            <p><input type="radio" name="answer5" value="D" required [(ngModel)] = 'Answers.a5'> {{ Questions[4].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a3'] != '' && Answers['a4'] != '' && Answers['a5'] != '' && Answers['a9'] == '' || QuizIsDone == true">
+            <h4>6:   {{ Questions[5].questionString }}</h4>
+            <p><input type="radio" name="answer6" value="A" required [(ngModel)] = 'Answers.a6'> {{ Questions[5].answerA }}</p>
+            <p><input type="radio" name="answer6" value="B" required [(ngModel)] = 'Answers.a6'> {{ Questions[5].answerB }}</p>
+            <p><input type="radio" name="answer6" value="C" required [(ngModel)] = 'Answers.a6'> {{ Questions[5].answerC }}</p>
+            <p><input type="radio" name="answer6" value="D" required [(ngModel)] = 'Answers.a6'> {{ Questions[5].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a4'] != '' && Answers['a5'] != '' && Answers['a6'] != '' && Answers['a10'] == '' || QuizIsDone == true">
+            <h4>7:   {{ Questions[6].questionString }}</h4>
+            <p><input type="radio" name="answer7" value="A" required [(ngModel)] = 'Answers.a7'> {{ Questions[6].answerA }}</p>
+            <p><input type="radio" name="answer7" value="B" required [(ngModel)] = 'Answers.a7'> {{ Questions[6].answerB }}</p>
+            <p><input type="radio" name="answer7" value="C" required [(ngModel)] = 'Answers.a7'> {{ Questions[6].answerC }}</p>
+            <p><input type="radio" name="answer7" value="D" required [(ngModel)] = 'Answers.a7'> {{ Questions[6].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a5'] != '' && Answers['a6'] != '' && Answers['a7'] != '' && Answers['a11'] == '' || QuizIsDone == true">
+            <h4>8:   {{ Questions[7].questionString }}</h4>
+            <p><input type="radio" name="answer8" value="A" required [(ngModel)] = 'Answers.a8'> {{ Questions[7].answerA }}</p>
+            <p><input type="radio" name="answer8" value="B" required [(ngModel)] = 'Answers.a8'> {{ Questions[7].answerB }}</p>
+            <p><input type="radio" name="answer8" value="C" required [(ngModel)] = 'Answers.a8'> {{ Questions[7].answerC }}</p>
+            <p><input type="radio" name="answer8" value="D" required [(ngModel)] = 'Answers.a8'> {{ Questions[7].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a6'] != '' && Answers['a7'] != '' && Answers['a8'] != '' && Answers['a12'] == '' || QuizIsDone == true">
+            <h4>9:   {{ Questions[8].questionString }}</h4>
+            <p><input type="radio" name="answer9" value="A" required [(ngModel)] = 'Answers.a9'> {{ Questions[8].answerA }}</p>
+            <p><input type="radio" name="answer9" value="B" required [(ngModel)] = 'Answers.a9'> {{ Questions[8].answerB }}</p>
+            <p><input type="radio" name="answer9" value="C" required [(ngModel)] = 'Answers.a9'> {{ Questions[8].answerC }}</p>
+            <p><input type="radio" name="answer9" value="D" required [(ngModel)] = 'Answers.a9'> {{ Questions[8].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a7'] != '' && Answers['a8'] != '' && Answers['a9'] != '' && Answers['a13'] == '' || QuizIsDone == true">
+            <h4>10:   {{ Questions[9].questionString }}</h4>
+            <p><input type="radio" name="answer10" value="A" required [(ngModel)] = 'Answers.a10'> {{ Questions[9].answerA }}</p>
+            <p><input type="radio" name="answer10" value="B" required [(ngModel)] = 'Answers.a10'> {{ Questions[9].answerB }}</p>
+            <p><input type="radio" name="answer10" value="C" required [(ngModel)] = 'Answers.a10'> {{ Questions[9].answerC }}</p>
+            <p><input type="radio" name="answer10" value="D" required [(ngModel)] = 'Answers.a10'> {{ Questions[9].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a8'] != '' && Answers['a9'] != '' && Answers['a10'] != '' && Answers['a14'] == '' || QuizIsDone == true">
+            <h4>11:   {{ Questions[10].questionString }}</h4>
+            <p><input type="radio" name="answer11" value="A" required [(ngModel)] = 'Answers.a11'> {{ Questions[10].answerA }}</p>
+            <p><input type="radio" name="answer11" value="B" required [(ngModel)] = 'Answers.a11'> {{ Questions[10].answerB }}</p>
+            <p><input type="radio" name="answer11" value="C" required [(ngModel)] = 'Answers.a11'> {{ Questions[10].answerC }}</p>
+            <p><input type="radio" name="answer11" value="D" required [(ngModel)] = 'Answers.a11'> {{ Questions[10].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a9'] != '' && Answers['a10'] != '' && Answers['a11'] != '' && Answers['a15'] == '' || QuizIsDone == true">
+            <h4>12:   {{ Questions[11].questionString }}</h4>
+            <p><input type="radio" name="answer12" value="A" required [(ngModel)] = 'Answers.a12'> {{ Questions[11].answerA }}</p>
+            <p><input type="radio" name="answer12" value="B" required [(ngModel)] = 'Answers.a12'> {{ Questions[11].answerB }}</p>
+            <p><input type="radio" name="answer12" value="C" required [(ngModel)] = 'Answers.a12'> {{ Questions[11].answerC }}</p>
+            <p><input type="radio" name="answer12" value="D" required [(ngModel)] = 'Answers.a12'> {{ Questions[11].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a10'] != '' && Answers['a11'] != '' && Answers['a12'] != '' || QuizIsDone == true">
+            <h4>13:   {{ Questions[12].questionString }}</h4>
+            <p><input type="radio" name="answer13" value="A" required [(ngModel)] = 'Answers.a13'> {{ Questions[12].answerA }}</p>
+            <p><input type="radio" name="answer13" value="B" required [(ngModel)] = 'Answers.a13'> {{ Questions[12].answerB }}</p>
+            <p><input type="radio" name="answer13" value="C" required [(ngModel)] = 'Answers.a13'> {{ Questions[12].answerC }}</p>
+            <p><input type="radio" name="answer13" value="D" required [(ngModel)] = 'Answers.a13'> {{ Questions[12].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a11'] != '' && Answers['a12'] != '' && Answers['a13'] != '' || QuizIsDone == true">
+            <h4>14:   {{ Questions[13].questionString }}</h4>
+            <p><input type="radio" name="answer14" value="A" required [(ngModel)] = 'Answers.a14'> {{ Questions[13].answerA }}</p>
+            <p><input type="radio" name="answer14" value="B" required [(ngModel)] = 'Answers.a14'> {{ Questions[13].answerB }}</p>
+            <p><input type="radio" name="answer14" value="C" required [(ngModel)] = 'Answers.a14'> {{ Questions[13].answerC }}</p>
+            <p><input type="radio" name="answer14" value="D" required [(ngModel)] = 'Answers.a14'> {{ Questions[13].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a12'] != '' && Answers['a13'] != '' && Answers['a14'] != '' || QuizIsDone == true">
+            <h4>15:   {{ Questions[14].questionString }}</h4>
+            <p><input type="radio" name="answer15" value="A" required [(ngModel)] = 'Answers.a15'> {{ Questions[14].answerA }}</p>
+            <p><input type="radio" name="answer15" value="B" required [(ngModel)] = 'Answers.a15'> {{ Questions[14].answerB }}</p>
+            <p><input type="radio" name="answer15" value="C" required [(ngModel)] = 'Answers.a15'> {{ Questions[14].answerC }}</p>
+            <p><input type="radio" name="answer15" value="D" required [(ngModel)] = 'Answers.a15'> {{ Questions[14].answerD }}</p>
+            <hr>
+        </div>
+        
+        <div *ngIf="Answers['a15'] != '' && Answers['a14'] != '' && Answers['a13'] != ''">
+            <p><input type="submit" value="GO" [disabled]="!quizform.valid"></p>
+            <p>{{QuizError}}</p>
+        </div>
+    </form>
+    <p *ngIf="Answers['a15'] != '' && Answers['a14'] != '' && Answers['a13'] != ''"><button (click)="QuizCompleted()">Review your answers</button></p>
+</div>

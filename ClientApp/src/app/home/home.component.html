@@ -1,30 +1,38 @@
-<h1>Person of Interest!</h1>
-<h5>Match Making and Messaging Platform</h5>
-<br>
-<br>
-<h3>Welcome: {{ user.firstName }}!</h3>
-<br>
-<br>
-<h3>What you can do here</h3>
-<p>This platform allows users to take quizes that will help us identify your interests and desires. Our matching algorithm will then identify other users who share your interests and allow you to chat with them.  Once you've taken at least one quiz, you will be able to use our chat hub, where you can message in real time other users who are currently logged in. To get started  click the "take quiz" button below.  Or if you are a returning user jump right into chat by clicking the "chat" button.</p>
-<br>
-<br>
-<br>
-<br>
-<h4>Quizes</h4>
-<p>Take quizes to help us identify your interests and desires!</p>
-<button (click)="NavigateToQuizSelection()">Take Quiz</button>
-<br>
-<br>
-<br>
-<br>
-<h4>Chat</h4>
-<p>Connect and message people who you share interests with on our live chat platform!</p>
-<div *ngIf="user['quizResults'].length > 0">
-    <button (click)="NavigateToChat()">Chat</button>
-</div>
-<div *ngIf="user['quizResults'].length == 0">
-    <h4>Please take a quiz before chatting. This will help us match you with people who share your interests.</h4>
-    <button (click)="NavigateToQuizSelection()">Take Quiz</button>
+<div id ="wrapper">
+    <div id = "topBar">
+        <img id = "dating" src="http://i0.kym-cdn.com/entries/icons/original/000/017/323/OnlineDating1.jpg" alt="onlineDating">
+        <div id="headerTitle">
+            <h1>Person of Interest</h1>
+            <h5>Match Making and Messaging Platform</h5>
+        </div>
+        <img id ="cartoonHeart" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqGYk3C6Dj5tt9vqzuCc8KZfALdasL2mHSL_g-FCFbL0qfOAme" alt="cartoonHeart">
+    </div>
+    <hr>
+    <br>
+    <br>
+
+    <h3>Welcome {{ user.firstName }}!</h3>
+    <br>
+    <br>
+
+    <h3 class = "sectionTitle">What you can do here?</h3>
+    <p>This platform allows users to take quizes that will help us identify your interests and desires. Our matching algorithm will then identify other users who share your interests and allow you to chat with them.  Once you've taken at least one quiz, you will be able to use our chat hub, where you can message in real time other users who are currently logged in. To get started  click the "take quiz" button below.  Or if you are a returning user jump right into chat by clicking the "chat" button.</p>
+    <hr>
+
+    <h4 class = "sectionTitle">Quizes</h4>
+    <p>Take quizes to help us identify your interests and desires!</p>
+    <button (click)="NavigateToQuizSelection()">Go To Quiz Selection</button>
+    <hr>
+
+    <h4 class = "sectionTitle">Chat</h4>
+    <p>Connect and message people who you share interests with on our live chat platform!</p>
+    <div *ngIf="user['quizResults'].length > 0">
+        <button (click)="NavigateToChat()">Go To Chat Hub</button>
+    </div>
+    <div *ngIf="user['quizResults'].length == 0">
+        <h4>Please take a quiz before chatting. This will help us match you with people who share your interests.</h4>
+        <button (click)="NavigateToQuizSelection()">Take Me To My First Quiz</button>
+    </div>
+    <hr>
 </div>
 

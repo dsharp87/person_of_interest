@@ -7,12 +7,12 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Welcome to Person of Interest!</h1>
-  <h3>Match Making and Messaging Platform</h3>
+  <div id="headerText">
+    <h1>Welcome to Person of Interest</h1>
+    <h3>Match Making and Messaging Platform</h3>
+  </div>
+  <img src="http://www.personaldevelopmentguy.com/image-files/cupid-cartoon-red-love-heart-arrowpoint.jpg" alt="cupid">
   <hr>
-  <br>
-  <br>
-  <br>
   <br>
   <h4>To use the patform, please register or login if you have already registered.</h4>
   <div class="reg_form">
@@ -29,13 +29,13 @@
         <p class="errors" *ngIf="!Email.valid && (Email.dirty || Email.touched)" >Email is invalid</p>
 
         <p><input type="text" name="Password" [(ngModel)] = "User.Password" #Password="ngModel" pattern="^([a-zA-Z0-9@*#]{8,15})$" placeholder="Password" required></p>
-        <p class="errors" *ngIf="!Password.valid && (Password.dirty || Password.touched)" >Password is required</p>
+        <p class="errors" *ngIf="!Password.valid && (Password.dirty || Password.touched)" >Password is required and must be at least 8 characters long.</p>
 
         <p><input type="text" name="cPassword" [(ngModel)] = "User.cPassword" #cPassword="ngModel" pattern="^([a-zA-Z0-9@*#]{8,15})$" placeholder="Confirm Password" required></p>
         <p class="errors" *ngIf="!cPassword.valid && User.cPassword !== User.Password && (cPassword.dirty || cPassword.touched)" required>Confirm Password is required</p>
-        <p class="errors" *ngIf="User.cPassword != User.Password">Passwords do not match.</p>
+        <p class="errors" *ngIf="User.cPassword != User.Password && (cPassword.dirty || cPassword.touched)">Passwords do not match.</p>
         
-        <p><input type="submit" value="REGISTER!!" [disabled]="!registerform.valid"></p>
+        <p><input type="submit" value="Sign Me Up For Love!" [disabled]="!registerform.valid"></p>
         <p>{{RegisterError}}</p>
 
       </form>
@@ -52,7 +52,7 @@
           <p class="errors" *ngIf="!LoginEmail.valid && (LoginEmail.dirty || LoginEmail.touched)" >Email is required</p>
           <p><input type="text" name="LoginPassword" placeholder="Password" [(ngModel)] = "LogUser.Password" #LoginPassword = "ngModel" required></p>
           <p class="errors" *ngIf="!LoginPassword.valid && (LoginPassword.dirty || LoginPassword.touched)" >Password is required</p>
-          <input type="submit" value="submit" [disabled]="!loginform.valid">
+          <input type="submit" value="Back For More Love!" [disabled]="!loginform.valid">
         </form>
         <p>{{LoginError}}</p>
     </fieldset>

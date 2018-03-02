@@ -3,11 +3,12 @@
 
 <div>
 <div *ngFor="let user of online_users">
-  <button *ngIf="online_users.length > 0" (click)="ChatUser(user.connectionID, user.firstName)">{{user.firstName}}</button>
+  <button *ngIf="online_users.length > 0" (click)="ChatUser(user.connectionID, user.firstName)"><h4>{{user.firstName}}</h4>
+    <div *ngFor="let res of user.matchRes"> 
+      <h4>Quiz nr: {{res[0]}} Match Percentage: {{res[1]*100}} %</h4>
+    </div>
+  </button>
   <!-- {{user | json}} -->
-  <div *ngFor="let res of user.matchRes"> 
-    <h3>Quiz nr: {{res[0]}} Match Percentage: {{res[1]*100}} %</h3>
-  </div>
 </div>
 
 
@@ -18,6 +19,7 @@
 <div class="container-fluid">
 
   <h1>Chat with Cool People!</h1>
+  <p>Type icebreaker for some fun questions!</p>
 
 
   <div class="row">

@@ -21,6 +21,7 @@ export class ChatroomComponent implements OnInit {
   chatID : String;
   chatPerson : String;
   OnlineList : any;
+  IceBreakers : String[];
 
   constructor(private _router: Router, private _http:HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.user = {firstName : "Per", userID:1, quizResults:[]};
@@ -28,11 +29,15 @@ export class ChatroomComponent implements OnInit {
     this.chatID = "";
     this.chatPerson = "";
     this.online_users = [];
+    this.IceBreakers = ["What are your favorite songs from your teenage years that you still rock out to when nobody else is listening?","What’s the craziest dare you ever took?","What’s the craziest fashion trend you ever rocked?"];
    }
 
   public sendMessage(): void {
-    const data = `${this.user['firstName']}: ${this.message}`;
-
+    if(this.message == "icebreaker"){
+      const data = `System Matchmaker: ${this.IceBreakers[Math.floor(Math.random()*this.IceBreakers.length)]}`;
+    }
+    else{const data = `${this.user['firstName']}: ${this.message}`;}
+    
     this._hubConnection.invoke('Send', data, this.chatID);
     this.messages.push(data);
   }

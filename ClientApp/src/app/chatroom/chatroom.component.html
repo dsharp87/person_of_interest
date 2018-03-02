@@ -1,5 +1,4 @@
-<div><h1>TEST</h1>
-
+<div>
 <div *ngFor="let user of online_users">
   <button *ngIf="online_users.length > 0" (click)="ChatUser(user.connectionID, user.firstName)">{{user.firstName}}</button>
   <!-- {{user | json}} -->

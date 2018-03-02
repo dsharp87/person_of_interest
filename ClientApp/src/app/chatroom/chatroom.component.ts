@@ -35,11 +35,16 @@ export class ChatroomComponent implements OnInit {
   public sendMessage(): void {
     if(this.message == "icebreaker"){
       const data = `System Matchmaker: ${this.IceBreakers[Math.floor(Math.random()*this.IceBreakers.length)]}`;
+      this._hubConnection.invoke('Send', data, this.chatID);
+      this.messages.push(data);
     }
-    else{const data = `${this.user['firstName']}: ${this.message}`;}
+    else {
+      const data = `${this.user['firstName']}: ${this.message}`;
+      this._hubConnection.invoke('Send', data, this.chatID);
+      this.messages.push(data);
+      }
     
-    this._hubConnection.invoke('Send', data, this.chatID);
-    this.messages.push(data);
+
   }
 
   public ChatUser(connectionID, targetPerson){

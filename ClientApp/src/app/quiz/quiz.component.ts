@@ -15,6 +15,7 @@ export class QuizComponent implements OnInit {
   baseUrl:String;
   QuizError: string;
   user:object
+  QuizIsDone: boolean;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
@@ -83,8 +84,14 @@ export class QuizComponent implements OnInit {
 
   ngOnInit() {
     this.checkSession();
+    this.QuizIsDone = false;
   }
   
+  QuizCompleted()
+  {
+    this.QuizIsDone = true;
+  }
+ 
 }
 
 interface Question {

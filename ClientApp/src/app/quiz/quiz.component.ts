@@ -22,9 +22,10 @@ export class QuizComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
     this.QuizError = "";
+    this.Questions = [];
     this._route.params.subscribe((params: Params) => this.QuizID = params.id);
     this._http.get(baseUrl + `Quizes/Quiz/GetQuiz/${this.QuizID}`).subscribe(result => {
-      console.log(result);
+      // console.log(result);
       this.Questions = result["questions"];
       this.QuizTitle = result["name"]
       this.QuizDescription = result["description"];
@@ -63,7 +64,7 @@ export class QuizComponent implements OnInit {
       QuizID: this.QuizID
     }
     this._http.post(this.baseUrl + 'Quizes/Quiz/SumbitResults', ResultModel).subscribe(result => {
-      console.log(result);
+      // console.log(result);
       this._router.navigate(["/landing"]);
     }, error => {
       console.error(error);

@@ -1,10 +1,23 @@
 <button (click)="NavigateToHome()">Home</button>
 
-<div><h1>TEST</h1></div>
+
+<div>
+<div *ngFor="let user of online_users">
+  <button *ngIf="online_users.length > 0" (click)="ChatUser(user.connectionID, user.firstName)">{{user.firstName}}</button>
+  <!-- {{user | json}} -->
+  <div *ngFor="let res of user.matchRes"> 
+    <h3>Quiz nr: {{res[0]}} Match Percentage: {{res[1]*100}} %</h3>
+  </div>
+</div>
+
+
+<button (click)=find_online_users()>Refresh Online Users</button>
+
+</div>
 
 <div class="container-fluid">
 
-  <h1>Send some basic messages</h1>
+  <h1>Chat with Cool People!</h1>
 
 
   <div class="row">
@@ -13,7 +26,7 @@
         <label class="sr-only" for="message">Message</label>
         <input type="text" class="form-control" id="message" placeholder="your message..." name="message" [(ngModel)]="message" required>
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="!messageForm.valid">Send SignalR Message</button>
+      <button *ngIf="chatID.length > 0" type="submit" class="btn btn-primary" [disabled]="!messageForm.valid">Send message to {{chatPerson}}</button>
     </form>
   </div>
   <div class="row" *ngIf="messages.length > 0">

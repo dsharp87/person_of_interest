@@ -14,8 +14,9 @@ namespace AspNetCoreSignalr.SignalRHubs {
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Task Send (string data) {
-            return Clients.All.InvokeAsync ("Send", data);
+        public Task Send (string data, string ConnectionID) {
+            return Clients.Client(ConnectionID).InvokeAsync("Send",data);
+            // return Clients.All.InvokeAsync ("Send", data);
         }
 
         public override Task OnConnectedAsync () {
@@ -24,6 +25,7 @@ namespace AspNetCoreSignalr.SignalRHubs {
             User UpdateUser = _context.users.SingleOrDefault (user => user.UserID == CookieUID);
             UpdateUser.ConnectionID = ConnectionID;
             _context.SaveChanges ();
+            Clients.All.InvokeAsync("Send",$"{UpdateUser.FirstName} has logged on");
             return base.OnConnectedAsync ();
         }
 
@@ -32,7 +34,7 @@ namespace AspNetCoreSignalr.SignalRHubs {
             User UpdateUser = _context.users.SingleOrDefault (user => user.ConnectionID == ConnectionID);
             UpdateUser.ConnectionID = "";    
             _context.SaveChanges ();
-            Clients.All.InvokeAsync("Send","${UpdateUser.FirstName} has logged off (${UpdateUser.UserID})");
+            Clients.All.InvokeAsync("Send",$"{UpdateUser.FirstName} has logged off {UpdateUser.UserID}");
             return base.OnDisconnectedAsync (exception);
         }
 

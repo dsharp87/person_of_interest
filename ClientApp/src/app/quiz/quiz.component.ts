@@ -14,11 +14,8 @@ export class QuizComponent implements OnInit {
   Questions: Question[];
   baseUrl:String;
   QuizError: string;
-<<<<<<< HEAD
   user:object
-=======
-  CompletedQuestion: number;
->>>>>>> tyler
+  QuizIsDone: boolean;
 
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
@@ -87,20 +84,14 @@ export class QuizComponent implements OnInit {
   ngOnInit() {
     this.checkSession();
     this._route.params.subscribe((params: Params) => this.Id = params.id);
-    this.CompletedQuestion = 0;
+    this.QuizIsDone = false;
+
   }
-  select(string)
+  QuizCompleted()
   {
-    if (string == "question1")
-    {
-      this.CompletedQuestion = 1;
-    }
-    
+    this.QuizIsDone = true;
   }
-
-
-
-  
+ 
 }
 
 interface Question {

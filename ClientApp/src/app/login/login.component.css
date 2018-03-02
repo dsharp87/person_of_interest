@@ -1,3 +1,39 @@
+.reg_form {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 110px;
+    margin-left: 250px;
+    width: 240px;
+    height: 400;
+}
+
+.log_form {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 240px;
+    height: 400;
+}
+
+.wrapper {
+    vertical-align: middle;
+    align-content: center;
+}
+
+#logRegButton {
+    width: 200px;
+    background-color: #3080e7;
+    color: #e5ebf3;
+}
+
+.wrapper input {
+    width: 200px;
+}
+
+h3 b {
+    align-self: center;
+    
+}
+
 img {
     width:100px;
     display: inline-block;

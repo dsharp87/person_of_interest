@@ -29,7 +29,8 @@ namespace person_of_interest.Controllers
             foreach (var quiz in AllQuizes) {
                 SlimQuiz SlimQuiz = new SlimQuiz {
                     QuizID = quiz.QuizID,
-                    Name = quiz.Name
+                    Name = quiz.Name,
+                    Description = quiz.Description
                 };
                 foreach (var question in quiz.Questions) {
                     SlimQuestion SlimQuestion = new SlimQuestion {
@@ -55,7 +56,8 @@ namespace person_of_interest.Controllers
             Quiz Quiz = _context.quizes.Where( quiz => quiz.QuizID == IdNum).Include( quiz => quiz.Questions).SingleOrDefault();
             SlimQuiz SlimQuiz = new SlimQuiz {
                 QuizID = Quiz.QuizID,
-                Name = Quiz.Name
+                Name = Quiz.Name,
+                Description = Quiz.Description
             };
             foreach (var question in Quiz.Questions) {
                 SlimQuestion SlimQuestion = new SlimQuestion {

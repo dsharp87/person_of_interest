@@ -2,15 +2,8 @@
 <script src="path/to/angular-animate.js"></script>
 <button (click)="NavigateToHome()">Home</button>
 
-<h4>This is QuizID {{Id}}</h4>
-
-<!-- <h4>User json is: {{ user | json }}</h4>
-
-{{ Answers | json }} -->
-
-<!-- {{ Questions | json }} -->
-
 <h3>{{ QuizTitle }} Quiz</h3>
+<h5>Description: {{ QuizDescription }}</h5>
 
 <form (submit)="SubmitAnswers()" name="quizform" #quizform="ngForm">
     <div *ngIf="Answers['a4'] == '' || QuizIsDone == true">

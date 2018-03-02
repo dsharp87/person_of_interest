@@ -14,6 +14,8 @@ namespace person_of_interest.Models
 
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public List<Question> Questions { get; set; }
 
         public Quiz() {

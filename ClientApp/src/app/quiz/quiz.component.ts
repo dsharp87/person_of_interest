@@ -9,7 +9,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QuizComponent implements OnInit {
   QuizTitle: string;
-  Id:number = 0;
+  QuizDescription: string;
+  QuizID:number;
   Answers: object;
   Questions: Question[];
   baseUrl:String;
@@ -21,14 +22,15 @@ export class QuizComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
     this.QuizError = "";
-    this._route.params.subscribe((params: Params) => this.Id = params.id);
-    this._http.get(baseUrl + `Quizes/Quiz/GetQuiz/${this.Id}`).subscribe(result => {
+    this._route.params.subscribe((params: Params) => this.QuizID = params.id);
+    this._http.get(baseUrl + `Quizes/Quiz/GetQuiz/${this.QuizID}`).subscribe(result => {
       console.log(result);
       this.Questions = result["questions"];
-      this.QuizTitle = result["name"];
+      this.QuizTitle = result["name"]
+      this.QuizDescription = result["description"];
     }, error => console.error(error))
+
     this.Answers = {
-      QuizID: this.Id,
       a1:"",
       a2:"",
       a3:"",
@@ -47,12 +49,18 @@ export class QuizComponent implements OnInit {
     };
    }
 
+   // CSS YOUR MOM!!!!
+
   SubmitAnswers() {
     console.log(this.Answers, "component SubmitAnswer");
     console.log(this.baseUrl + 'Quizes/Quiz/SumbitResults', "url i'm going to hit");
+    let StringAssembler = ""
+    for (let key in this.Answers) {
+      StringAssembler += this.Answers[key];
+    }
     let ResultModel = {
-      ResultString: (this.Answers["a1"] + this.Answers["a2"] + this.Answers["a3"] + this.Answers["a4"] + this.Answers["a5"]),
-      QuizID: this.Answers["QuizID"]
+      ResultString: StringAssembler,
+      QuizID: this.QuizID
     }
     this._http.post(this.baseUrl + 'Quizes/Quiz/SumbitResults', ResultModel).subscribe(result => {
       console.log(result);
@@ -75,7 +83,6 @@ export class QuizComponent implements OnInit {
         if (result == null) {
           this._router.navigate(["/login"])
         }
-        // console.log("my result is", result);
         this.user = result;
         // this.find_online_users();
       }, error => console.error(error)

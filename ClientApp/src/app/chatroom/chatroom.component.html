@@ -1,11 +1,8 @@
-<button (click)="NavigateToHome()">Home</button>
-
-
 <div>
 <div *ngFor="let user of online_users">
-  <button *ngIf="online_users.length > 0" (click)="ChatUser(user.connectionID, user.firstName)"><h4>{{user.firstName}}</h4>
+  <button *ngIf="online_users.length > 0" (click)="ChatUser(user.connectionID, user.firstName)" class="userbutton"><h4>{{user.firstName}}</h4>
     <div *ngFor="let res of user.matchRes"> 
-      <h4>Quiz nr: {{res[0]}} Match Percentage: {{res[1]*100}} %</h4>
+      <h4>Quiz nr: {{res[0]}} Match Percentage: {{res[1]}} %</h4>
     </div>
   </button>
   <!-- {{user | json}} -->

@@ -22,6 +22,7 @@ export class ChatroomComponent implements OnInit {
   chatPerson : String;
   OnlineList : any;
   IceBreakers : String[];
+  messageHelper : Object
 
   constructor(private _router: Router, private _http:HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.user = {firstName : "Per", userID:1, quizResults:[]};
@@ -30,7 +31,25 @@ export class ChatroomComponent implements OnInit {
     this.chatPerson = "";
     this.online_users = [];
     this.IceBreakers = ["What are your favorite songs from your teenage years that you still rock out to when nobody else is listening?","What’s the craziest dare you ever took?","What’s the craziest fashion trend you ever rocked?"];
-   }
+    this.messageHelper = {
+      messagesInternal : "",
+      testObjListener: function(val) {},
+      set messages(val){
+        // console.log("test obj touched")
+        this.messagesInternal = val;
+        this.testObjListener(val);
+      },
+      get messages(){return this.messagesInternal},
+      registerListener: function(listener){
+        this.testObjListener = listener;
+      }
+    };
+   
+  
+  
+  
+  
+  }
 
   public sendMessage(): void {
     if(this.message == "icebreaker"){
@@ -52,12 +71,29 @@ export class ChatroomComponent implements OnInit {
     this.chatPerson = targetPerson;
   }
 
+  public matchLogOnOff(message : string){
+    var reg = /logged/
+    var found = message.match(reg)
+    console.log(found);
+  }
+
   NavigateToHome() {
     this._router.navigate(["/landing"])
   }
 
   ngOnInit() {
     this.checkSession();
+    this.messageHelper['registerListener']((val)=>{
+      // console.log(this.messages)
+      var reg = /logged/
+      var found = this.messages[this.messages.length-1].match(reg)
+      // console.log(found);
+      if (found != null){
+        // console.log("fired")
+        this.find_online_users()
+      }
+      // this.matchLogOnOff(this.messages);
+    })
     // this._hubConnection = new HubConnection('/chathub');
     // this._hubConnection.on('Send', (data: any) => {
     //   const received = `${data}`;
@@ -73,28 +109,31 @@ export class ChatroomComponent implements OnInit {
     //   });
   }
 
+
+
   checkSession(){
-    console.log(this.baseUrl+'User/CheckSessionCookieMaker');
+    // console.log(this.baseUrl+'User/CheckSessionCookieMaker');
     this._http.get(this.baseUrl+'User/CheckSessionCookieMaker').subscribe(
       (result) => {
         if (result == null) {
           this._router.navigate(["/login"])
         }
-        console.log("my result is", result);
+        // console.log("my result is", result);
         this.user = result;
         this.find_online_users();
         this._hubConnection = new HubConnection('/chathub');
         this._hubConnection.on('Send', (data: any) => {
           const received = `${data}`;
           this.messages.push(received);
+          this.messageHelper['messages'] = data;
         });
     
         this._hubConnection.start()
           .then(() => {
-            console.log('Hub connection started')
+            // console.log('Hub connection started')
           })
           .catch(err => {
-            console.log('Error while establishing connection')
+            // console.log('Error while establishing connection')
           });
 
       }, error => console.error(error)
@@ -105,10 +144,10 @@ export class ChatroomComponent implements OnInit {
     this._http.get(this.baseUrl+'Chat/OnlineUsers').subscribe(
       (result) => {
         this.online_users = [];
-        this.OnlineList = result
-        console.log(this.OnlineList);
+        this.OnlineList = result;
+        // console.log(this.OnlineList);
         for(var u of this.OnlineList){
-          console.log(u,"line96")
+          // console.log(u,"line96")
           if(u.userID == this.user['userID']){
             continue
           }
@@ -126,7 +165,7 @@ export class ChatroomComponent implements OnInit {
                 matchCount++
               }
             }
-            u['matchRes'].push([q.quizID, matchCount/len]);
+            u['matchRes'].push([q.quizID, Math.floor(matchCount/len *100)]);
           }
           
           this.online_users.push(u);

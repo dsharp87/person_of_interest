@@ -48,13 +48,14 @@ export class QuizComponent implements OnInit {
       a14:"",
       a15:"",
     };
+    this.QuizIsDone = false;
    }
 
    // CSS YOUR MOM!!!!
 
   SubmitAnswers() {
-    console.log(this.Answers, "component SubmitAnswer");
-    console.log(this.baseUrl + 'Quizes/Quiz/SumbitResults', "url i'm going to hit");
+    // console.log(this.Answers, "component SubmitAnswer");
+    // console.log(this.baseUrl + 'Quizes/Quiz/SumbitResults', "url i'm going to hit");
     let StringAssembler = ""
     for (let key in this.Answers) {
       StringAssembler += this.Answers[key];
@@ -78,7 +79,7 @@ export class QuizComponent implements OnInit {
 
 
   checkSession(){
-    console.log(this.baseUrl+'User/CheckSession');
+    // console.log(this.baseUrl+'User/CheckSession');
     this._http.get(this.baseUrl+'User/CheckSession').subscribe(
       (result) => {
         if (result == null) {

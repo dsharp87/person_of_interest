@@ -87,9 +87,6 @@ namespace person_of_interest.Controllers {
             if (logUser.Password == currentUser.Password) {
                 HttpContext.Session.SetObjectAsJson ("currentUser", NewSlimUser);
                 HttpContext.Session.SetInt32 ("UserID", currentUser.UserID);
-                
-                
-                
                 return NewSlimUser;
             } else {
                 return BadRequest ("Password does not match!");

@@ -1,3 +1,5 @@
+// Database interface file
+
 using Microsoft.EntityFrameworkCore;
 
 

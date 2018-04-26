@@ -1,63 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  <div class="wrapper">
-  <div id="headerText">
-    <h1>Welcome to Person of Interest</h1>
-    <h3>Match Making and Messaging Platform</h3>
-  </div>
-  <img src="http://www.personaldevelopmentguy.com/image-files/cupid-cartoon-red-love-heart-arrowpoint.jpg" alt="cupid">
-  <hr>
-  <br>
-  <div class="reg_form">
-    <fieldset>
-      <legend><b>Register</b><p>for a new account</p></legend>
-      
-      <form (submit)="RegisterUser()" name="registerform"  #registerform="ngForm">
-        <p><input type="text" name="FirstName" [(ngModel)] = "User.FirstName" #FirstName="ngModel" placeholder="First Name" required></p>
-        <p class="errors" *ngIf="!FirstName.valid && (FirstName.dirty || FirstName.touched)" >First name is required</p>
-        
-        <p><input type="text" name="LastName" [(ngModel)] = "User.LastName" #LastName="ngModel" placeholder="Last Name" required></p>
-        <p class="errors" *ngIf="!LastName.valid && (LastName.dirty || LastName.touched)" >Last name is required</p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div id="headerText">
+                <h1>Welcome to Person of Interest</h1>
+                <h3>Match Making and Messaging Platform</h3>
+            </div>
+            <img src="http://www.personaldevelopmentguy.com/image-files/cupid-cartoon-red-love-heart-arrowpoint.jpg" alt="cupid">
+            <hr>
+            <br>
+            <div class="reg_form">
+                <fieldset>
+                    <legend><b>Register</b><p>for a new account</p></legend>
+                    
+                    <form (submit)="RegisterUser()" name="registerform"  #registerform="ngForm">
+                        <p><input type="text" name="FirstName" [(ngModel)] = "User.FirstName" #FirstName="ngModel" placeholder="First Name" required></p>
+                        <p class="errors" *ngIf="!FirstName.valid && (FirstName.dirty || FirstName.touched)" >First name is required</p>
+                        
+                        <p><input type="text" name="LastName" [(ngModel)] = "User.LastName" #LastName="ngModel" placeholder="Last Name" required></p>
+                        <p class="errors" *ngIf="!LastName.valid && (LastName.dirty || LastName.touched)" >Last name is required</p>
 
-        <p><input type="text" name="Email" [(ngModel)] = "User.Email" #Email="ngModel" placeholder="Email" required></p>
-        <p class="errors" *ngIf="!Email.valid && (Email.dirty || Email.touched)" >Email is invalid</p>
+                        <p><input type="text" name="Email" [(ngModel)] = "User.Email" #Email="ngModel" placeholder="Email" required></p>
+                        <p class="errors" *ngIf="!Email.valid && (Email.dirty || Email.touched)" >Email is invalid</p>
 
-        <p><input type="text" name="Password" [(ngModel)] = "User.Password" #Password="ngModel" pattern="^([a-zA-Z0-9@*#]{8,15})$" placeholder="Password" required></p>
-        <p class="errors" *ngIf="!Password.valid && (Password.dirty || Password.touched)" >Password is required and must be at least 8 characters long.</p>
+                        <p><input type="text" name="Password" [(ngModel)] = "User.Password" #Password="ngModel" pattern="^([a-zA-Z0-9@*#]{8,15})$" placeholder="Password" required></p>
+                        <p class="errors" *ngIf="!Password.valid && (Password.dirty || Password.touched)" >Password is required and must be at least 8 characters long.</p>
 
-        <p><input type="text" name="cPassword" [(ngModel)] = "User.cPassword" #cPassword="ngModel" pattern="^([a-zA-Z0-9@*#]{8,15})$" placeholder="Confirm Password" required></p>
-        <p class="errors" *ngIf="!cPassword.valid && User.cPassword !== User.Password && (cPassword.dirty || cPassword.touched)" required>Confirm Password is required</p>
-        <p class="errors" *ngIf="User.cPassword != User.Password && (cPassword.dirty || cPassword.touched)">Passwords do not match.</p>
-        
-        <p><input id="logRegButton" type="submit" value="Sign Me Up For Love!" [disabled]="!registerform.valid"></p>
-        <p>{{RegisterError}}</p>
+                        <p><input type="text" name="cPassword" [(ngModel)] = "User.cPassword" #cPassword="ngModel" pattern="^([a-zA-Z0-9@*#]{8,15})$" placeholder="Confirm Password" required></p>
+                        <p class="errors" *ngIf="!cPassword.valid && User.cPassword !== User.Password && (cPassword.dirty || cPassword.touched)" required>Confirm Password is required</p>
+                        <p class="errors" *ngIf="User.cPassword != User.Password && (cPassword.dirty || cPassword.touched)">Passwords do not match.</p>
+                        
+                        <p><input id="logRegButton" type="submit" value="Sign Me Up For Love!" [disabled]="!registerform.valid"></p>
+                        <p>{{RegisterError}}</p>
 
-      </form>
-    </fieldset>
-  </div>
-      
-    
-  
-  <div class="log_form">
-    <fieldset>
-      <legend><b>Login</b><p>to an existing account</p></legend>
-        <form (submit)="LoginUser()" name="loginform" #loginform="ngForm">
-          <p><input type="text" name="LoginEmail" placeholder="Email" [(ngModel)] = "LogUser.Email" #LoginEmail = "ngModel" required></p>
-          <p class="errors" *ngIf="!LoginEmail.valid && (LoginEmail.dirty || LoginEmail.touched)" >Email is required</p>
-          <p><input type="text" name="LoginPassword" placeholder="Password" [(ngModel)] = "LogUser.Password" #LoginPassword = "ngModel" required></p>
-          <p class="errors" *ngIf="!LoginPassword.valid && (LoginPassword.dirty || LoginPassword.touched)" >Password is required</p>
-          <input id="logRegButton" type="submit" value="Back For More Love!" [disabled]="!loginform.valid">
-        </form>
-        <p>{{LoginError}}</p>
-    </fieldset>
-  </div>
-</div>
-</body>
+                    </form>
+                </fieldset>
+            </div>
+            <div class="log_form">
+                <fieldset>
+                    <legend><b>Login</b><p>to an existing account</p></legend>
+                    <form (submit)="LoginUser()" name="loginform" #loginform="ngForm">
+                        <p><input type="text" name="LoginEmail" placeholder="Email" [(ngModel)] = "LogUser.Email" #LoginEmail = "ngModel" required></p>
+                        <p class="errors" *ngIf="!LoginEmail.valid && (LoginEmail.dirty || LoginEmail.touched)" >Email is required</p>
+                        <p><input type="text" name="LoginPassword" placeholder="Password" [(ngModel)] = "LogUser.Password" #LoginPassword = "ngModel" required></p>
+                        <p class="errors" *ngIf="!LoginPassword.valid && (LoginPassword.dirty || LoginPassword.touched)" >Password is required</p>
+                        <input id="logRegButton" type="submit" value="Back For More Love!" [disabled]="!loginform.valid">
+                    </form>
+                    <p>{{LoginError}}</p>
+                </fieldset>
+            </div>
+        </div>
+        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+    </body>
 </html>

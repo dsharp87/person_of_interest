@@ -2,7 +2,11 @@
     display: inline-block;
     vertical-align: middle;
     margin-right: 110px;
+<<<<<<< HEAD
     margin-left: 250px;
+=======
+    margin-left: 50px;
+>>>>>>> 1d670d0a784a0d57825ed9706c910e646d385bc4
     width: 240px;
     height: 400;
 }

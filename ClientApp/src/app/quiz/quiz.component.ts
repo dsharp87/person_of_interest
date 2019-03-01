@@ -22,9 +22,10 @@ export class QuizComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _router: Router, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
     this.QuizError = "";
+    this.Questions = [];
     this._route.params.subscribe((params: Params) => this.QuizID = params.id);
     this._http.get(baseUrl + `Quizes/Quiz/GetQuiz/${this.QuizID}`).subscribe(result => {
-      console.log(result);
+      // console.log(result);
       this.Questions = result["questions"];
       this.QuizTitle = result["name"]
       this.QuizDescription = result["description"];
@@ -47,13 +48,14 @@ export class QuizComponent implements OnInit {
       a14:"",
       a15:"",
     };
+    this.QuizIsDone = false;
    }
 
    // CSS YOUR MOM!!!!
 
   SubmitAnswers() {
-    console.log(this.Answers, "component SubmitAnswer");
-    console.log(this.baseUrl + 'Quizes/Quiz/SumbitResults', "url i'm going to hit");
+    // console.log(this.Answers, "component SubmitAnswer");
+    // console.log(this.baseUrl + 'Quizes/Quiz/SumbitResults', "url i'm going to hit");
     let StringAssembler = ""
     for (let key in this.Answers) {
       StringAssembler += this.Answers[key];
@@ -63,7 +65,7 @@ export class QuizComponent implements OnInit {
       QuizID: this.QuizID
     }
     this._http.post(this.baseUrl + 'Quizes/Quiz/SumbitResults', ResultModel).subscribe(result => {
-      console.log(result);
+      // console.log(result);
       this._router.navigate(["/landing"]);
     }, error => {
       console.error(error);
@@ -77,7 +79,7 @@ export class QuizComponent implements OnInit {
 
 
   checkSession(){
-    console.log(this.baseUrl+'User/CheckSession');
+    // console.log(this.baseUrl+'User/CheckSession');
     this._http.get(this.baseUrl+'User/CheckSession').subscribe(
       (result) => {
         if (result == null) {

@@ -22,3 +22,25 @@ INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD,
 INSERT INTO quiz_results (ResultString, UserID, QuizID) VALUES ("ABCDABCDABCDABC", 1, 1);
 INSERT INTO quiz_results (ResultString, UserID, QuizID) VALUES ("AABBCCDDAABBCCD", 2, 1);
 INSERT INTO quiz_results (ResultString, UserID, QuizID) VALUES ("DDDDCCCCBBBBAAA", 3, 1);
+
+
+INSERT INTO quizes (Name, Description) VALUES ("Outdoor Activities", "This quiz focuses on exploring what you like to do outside and the types of adventures you like to go on." );
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("If you could describe yourself in one word listed, which would you choose?", "q1", "Serene", "Rebbellious", "Social", "Crazy (someimes)", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("How large is your circle of friends?", "q2", " A couple of friends", " A lot of friends", "One or two really close friends", "Over a million or so", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("How much energy do you have?", "q3", "A good amount", " It depends", "Enough to get me through the day", "So much!", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("What kind of exercise do you prefer?", "q4", "Slow and Skillful", "Fast and Treacherous", "Fun and Upbeat", "Interesting and Calm", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("As a child you could always be found...", "q5", "Climbing trees", "In some body of water", "Taking your bike off some sweet jumps", "At a friend's house", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("How much free time do you usually have?", "q6", "1-2 hours", "All time is free time", "3-5 hours", "Absolutely None", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("You feel most comfortable when...", "q7", "You are in large groups", "You are with a partner", "You are moving", "You are by yourself", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("If you were to go for a walk or hike you prefer...", "q8", "Flat ground. Hills suck!", "Go up a hill. The best views are at the top.", "Through a forest or other shaded place. It gets too hot.", "Out in the sun.  You are solar powered!", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("What time a day do you feel most active", "q9", "Early morning", "Middle of the day", "Afternoon or evening after its cooled off", "After dark. I'm a nocturnal creature", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("Whats your favorite water activity?", "q10", "Go for a swim!", "Ride on a big yatch or cruiseliner", "Jetski or speedboating", "Something with a paddle", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("How far are you willing to go for adventure?", "q11", "Anywhere! I love exploring.", "Somehwere in the country. Traveling abroad is not my thing", "Within a days drive.", "Within 100 feet.  The yard right outside has all the adventure I need.", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("What sports do you like to play?", "q12", "Anything where I get to hit things with a raquet or bat.", "Kickball or Soccer (football)", "Running races", "Extreme stuff like base jumping or skydiving", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("What environment do you prefer?", "q13", "The snow! Winter wonderland for me.", "The water.  I've been called a fish before", "Out in nature! Its where i belong!", "Urban playground. The best places to go are in the city", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("How competative would you describe yourself", "q14", "Not at all. I just want to have fun.", "I'm going to be the best adventurer there ever was!", "A good amount.  It's more fun when there is challenge involved", "Very opposed.  I'm likey not going if there lots of competitiion", 2);
+INSERT INTO questions (QuestionString, Qnum, AnswerA, AnswerB, AnswerC, AnswerD, QuizID) VALUES ("How important is temperature?", "q15", "I'm either bundled up or going naked depending on the climate", "I'm flexable. Hot or cold, doesn't matter to me.", "I only go outside when its warm", "Why is there not a polarbear swim every day?", 2);
+
+INSERT INTO quiz_results (ResultString, UserID, QuizID) VALUES ("DCBADBCADBCADBC", 1, 2);
+INSERT INTO quiz_results (ResultString, UserID, QuizID) VALUES ("AABBCCDDAABBCCD", 2, 2);
+INSERT INTO quiz_results (ResultString, UserID, QuizID) VALUES ("AAACCCBBBDDDAAA", 3, 2);
